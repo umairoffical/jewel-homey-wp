@@ -1,0 +1,143 @@
+/*
+Theme Name: Homey Child
+Theme URI: http://themeforest.net/user/favethemes/
+Author: Favethemes
+Author URI: http://themeforest.net/user/favethemes/
+Description: Homey is a powerful booking platform that lets you run a residential or commercial
+rental business online with no hassle
+Version: 1.0.0
+Tags: right-sidebar, left-sidebar, custom-colors, custom-menu, featured-images, post-formats, theme-options, translation-ready
+License: GNU General Public License version 3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: homey
+Template: homey
+*/
+
+/* MARGIN */
+.mt-5{
+    margin-top:5px;
+}
+.ml-5{
+    margin-left:5px;
+}
+.mr-5{
+    margin-right:5px;
+}
+.mb-5{
+    margin-bottom:5px;
+}
+.mt-10{
+    margin-top:10px;
+}
+.ml-10{
+    margin-left:10px;
+}
+.mr-10{
+    margin-right:10px;
+}
+.mb-10{
+    margin-bottom:10px;
+}
+.mt-15{
+    margin-top:15px;
+}
+.ml-15{
+    margin-left:15px;
+}
+.mr-15{
+    margin-right:15px;
+}
+.mb-15{
+    margin-bottom:15px;
+}
+.mt-20{
+    margin-top:20px;
+}
+.ml-20{
+    margin-left:20px;
+}
+.mr-20{
+    margin-right:20px;
+}
+.mb-20{
+    margin-bottom:20px;
+}
+/* PADDING */
+.pt-5{
+    padding:5px;
+}
+.pl-5{
+    padding-left:5px;
+}
+.pr-5{
+    padding-right:5px;
+}
+.pb-5{
+    padding-bottom:5px;
+}
+.pt-10{
+    padding:10px;
+}
+.pl-10{
+    padding-left:10px;
+}
+.pr-10{
+    padding-right:10px;
+}
+.pb-10{
+    padding-bottom:10px;
+}
+.pt-15{
+    padding:15px;
+}
+.pl-15{
+    padding-left:15px;
+}
+.pr-15{
+    padding-right:15px;
+}
+.pb-15{
+    padding-bottom:15px;
+}
+.pt-20{
+    padding:20px;
+}
+.pl-20{
+    padding-left:20px;
+}
+.pr-20{
+    padding-right:20px;
+}
+.mp-20{
+    padding-bottom:20px;
+}
+
+.check-day-availability .form-group {
+    width: 100%;
+}
+.check-day-availability {
+    display: flex;
+    gap:10px;
+}
+.customize-guest-prices {
+    display: flex;
+    gap: 20px;
+}
+.guest-quantities {
+    display: flex;
+    flex-direction: column;
+}
+.guest-quantities span {
+    min-height: 42px !important;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.guest-price-fields input {
+    margin-bottom: 10px;
+}
+.guest-price-availablity div {
+    min-height: 42px !important;
+    margin-bottom: 10px !important;
+    padding-top: 6px;
+}
