@@ -141,3 +141,42 @@ Template: homey
     margin-bottom: 10px !important;
     padding-top: 6px;
 }
+#upload-progress-images {
+    margin-bottom: 30px !important;
+}
+.locatioon-welcome-meesage {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.single-rules-row {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e1e1e17a;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+.single-rules-row .rules-fileds-sections {
+    display: flex;
+    gap: 10px;
+}
+.single-rules-row .rules-fileds-sections .form-group {
+    width: 130px;
+}
+.single-rules-row .rules-fileds-sections .btn-single-rule {
+    background-color: red;
+    padding: 0px 12px;
+    padding-top: 0px;
+    height: 35px;
+    border-radius: 30px;
+    padding-top: 5px;
+    color: white;
+    margin-top: 2px;
+}
+.single-rules-row .rules-fileds-sections .form-group {
+    width: 130px;
+    margin-bottom: 0px;
+}
+.single-rules-row .label-condition {
+    display: block;
+    margin:auto 0px;
+}
