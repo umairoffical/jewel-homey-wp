@@ -6,7 +6,7 @@ global $homey_local, $hide_fields;
     <div class="block">
         <div class="block-title">
             <div class="block-left">
-                <h2 class="title"><?php esc_html_e('Amenities & Features','homey-child'); ?></h2>
+                <h2 class="title"><?php echo esc_attr(homey_option('ad_features')); ?></h2>
             </div><!-- block-left -->
         </div>
         <div class="block-body">

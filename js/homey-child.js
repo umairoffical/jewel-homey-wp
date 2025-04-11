@@ -59,5 +59,44 @@ jQuery(document).ready(function($) {
         });
     }
     removeExtraServices();
+
+    // Additional Rules
+    $('.btn-single-rule').on('click',function(e){
+        e.preventDefault();
+        var rulesText = $('#listing_rules_add_rule').val();
+
+        if(rulesText != ''){
+            $.ajax({
+                type: 'post',
+                url: homey_child_ajax.ajax_url,
+                dataType: 'json',
+                data: {
+                    'action' : 'generate_listing_rules',
+                    'rulesText' : rulesText,
+                },
+                beforeSend: function() {
+                    $('.btn-single-rule').text('Processing...');
+                },
+                success: function(data) {
+                    if(data.success){
+                        alert(data.message);
+                        $(".listing-rules-row").append(data.rule_html);
+                    }
+
+                    $('.remove-btn-single-rule').on('click',function(e){
+                        e.preventDefault();
+                        $(this).closest('.single-rules-row').remove();
+                    });
+                },
+                error: function(errorThrown) {},
+                complete: function(){
+                    $('.btn-single-rule').text('+ Add More');
+                    $('#listing_rules_add_rule').val('');
+                }
+            });
+        }else{
+            alert('Please enter a rule');
+        }
+    });
     
 }); 

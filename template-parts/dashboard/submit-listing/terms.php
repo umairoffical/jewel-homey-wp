@@ -19,7 +19,7 @@ $checkinout_hours = '';
     <div class="block">
         <div class="block-title">
             <div class="block-left">
-                <h2 class="title"><?php esc_html_e('Parking & Accessibility','homey-child'); ?></h2>
+                <h2 class="title"><?php echo esc_html(homey_option('ad_terms_rules')); ?></h2>
             </div><!-- block-left -->
         </div>
         <div class="block-body">
@@ -60,30 +60,7 @@ $checkinout_hours = '';
             <div class="row">
                 <div class="col-xs-12">
                     <label class="label-title" style="margin-bottom: 5px;"><?php esc_html_e('Additoinal Rules!','homey-child');?></label>
-                </div>
-                <div class="col-sm-12 col-xs-12 listing-rules-row mb-10">
-                    <div class="single-rules-row">
-                        <label class="label-condition">Is Smoking Allowed?</label>
-                        <div class="rules-fileds-sections">
-                            <div class="form-group">
-                                <label class="control control--radio radio-tab">
-                                    <input name="smoke" value="1" type="radio">
-                                    <span class="control-text"><?php esc_html_e('Yes','homey-child'); ?></span>
-                                    <span class="control__indicator"></span>
-                                    <span class="radio-tab-inner"></span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="control control--radio radio-tab">
-                                    <input name="smoke" value="0" checked="checked" type="radio">
-                                    <span class="control-text"><?php esc_html_e('No','homey-child'); ?></span>
-                                    <span class="control__indicator"></span>
-                                    <span class="radio-tab-inner"></span>
-                                </label>
-                            </div>
-                            <a href="#" class="btn-single-rule"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </div>
+                    <small>(<?php esc_html_e('Add Mulitple additional rules for your listing.','homey-child');?>)</small>
                 </div>
                 <div class="col-sm-12 mt-10">
                     <div class="row">
@@ -95,6 +72,7 @@ $checkinout_hours = '';
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 col-xs-12 listing-rules-row mt-10"></div>
             </div>
         </div>
     </div>

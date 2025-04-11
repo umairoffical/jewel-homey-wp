@@ -168,7 +168,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod['mon_available']" value="yes" checked="checked">
+                                                    <input type="radio" name="timeperiod[mon_available]" value="yes" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>

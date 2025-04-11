@@ -235,6 +235,7 @@ if(@$hide_fields['price_postfix'] != 1) {
             }
             ?>
             
+            <?php if($hide_fields['allow_additional_guests'] != 1):?>
             <hr class="row-separator">
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
@@ -277,6 +278,7 @@ if(@$hide_fields['price_postfix'] != 1) {
                 </div>
                 <?php } ?>
             </div>
+            <?php endif;?>
 
             <?php if($hide_fields['cleaning_fee'] != 1) { ?>
             <div class="row">

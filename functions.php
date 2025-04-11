@@ -1,6 +1,7 @@
 <?php
 // PHP INCLUDE FILES
 include_once( get_stylesheet_directory() . '/framework/functions/child-register-scripts.php');
+include_once( get_stylesheet_directory() . '/framework/functions/child-listing.php');
 
 // ENQUEUE STYLES
 function homey_child_enqueue_styles() {
@@ -11,6 +12,10 @@ add_action('wp_enqueue_scripts', 'homey_child_enqueue_styles');
 // ENQUEUE SCRIPTS
 function homey_child_enqueue_scripts() {
     wp_enqueue_script('homey-child-js', get_stylesheet_directory_uri() . '/js/homey-child.js', array('jquery'), null, true);
+    wp_localize_script('homey-child-js', 'homey_child_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('homey_child_nonce')
+    ));
 }
 add_action('wp_enqueue_scripts', 'homey_child_enqueue_scripts');
 

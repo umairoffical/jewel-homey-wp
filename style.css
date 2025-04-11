@@ -144,10 +144,6 @@ Template: homey
 #upload-progress-images {
     margin-bottom: 30px !important;
 }
-.locatioon-welcome-meesage {
-    text-align: center;
-    margin-bottom: 30px;
-}
 .single-rules-row {
     display: flex;
     justify-content: space-between;
@@ -162,7 +158,7 @@ Template: homey
 .single-rules-row .rules-fileds-sections .form-group {
     width: 130px;
 }
-.single-rules-row .rules-fileds-sections .btn-single-rule {
+.single-rules-row .rules-fileds-sections .remove-btn-single-rule {
     background-color: red;
     padding: 0px 12px;
     padding-top: 0px;

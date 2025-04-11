@@ -14,7 +14,7 @@ if( $geo_country_limit != 0 ) {
     <div class="block">
         <div class="block-title">
             <div class="block-left">
-                <h2 class="title"><?php esc_html_e('Address of Location','homey-child'); ?></h2>
+                <h2 class="title"><?php echo esc_html(homey_option('ad_location')); ?></h2>
                 <p class="mb-0"><?php esc_html_e('Guests will only receive your address once you confirm their booking request.','homey-child');?></p>
             </div><!-- block-left -->
         </div>
@@ -117,9 +117,9 @@ if( $geo_country_limit != 0 ) {
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="locatioon-welcome-meesage">
-                        <h2 class="mb-0"><?php esc_html_e('Host Welcome Message','homey-child'); ?></h2>
-                        <p class="mb-0"><?php esc_html_e('The welcome message will be shared with renters upon a successful booking. Please enter any additional instructions such as where to meet or where parking is available. A Site Rep does not need to be the host but does need to be a designated person representing the property that is available on site during the duration of the event.','homey-child');?></p>
+                    <div class="locatioon-welcome-meesage mb-10">
+                        <label for="day_of_instructions"><?php esc_html_e('Host Welcome Message','homey-child'); ?></label>
+                        <textarea name="host_welcome_message" id="host_welcome_message" class="form-control" placeholder="<?php esc_html_e('Enter Host Welcome Message','homey-child'); ?>"></textarea>
                     </div>
                     <div class="locatioon-site-rep">
                         <div class="form-group">
