@@ -9,7 +9,7 @@ if( $geo_country_limit != 0 ) {
     $geocomplete_country = homey_option('geocomplete_country');
 }
 ?>
-<div class="form-step">
+<div class="form-step form-step-location">
     <!--step information-->
     <div class="block">
         <div class="block-title">

@@ -13,7 +13,7 @@ if ($layout_order) {
     }
 }
 ?>
-<div class="form-step form-step-gal1" style="<?php echo esc_attr($style); ?>">
+<div class="form-step form-step-media form-step-gal1" style="<?php echo esc_attr($style); ?>">
     <!--step information-->
     <div class="block">
         <div class="block-title">

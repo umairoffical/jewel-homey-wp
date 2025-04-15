@@ -443,8 +443,9 @@ jQuery(document).ready( function($) {
             }
 
             if($(".form-step-gal1").hasClass('active')){
-                if($(".upload-gallery-thumb").length < 1){
+                if($(".upload-gallery-thumb").length < 6){
                     $("#homey_gallery_dragDrop").css("border", "3px dashed red");
+                    alert('Please upload atleast 6 images');
                     e.preventDefault();
                     return false;
                 }
@@ -516,6 +517,9 @@ jQuery(document).ready( function($) {
             }
             hideButtons(current);
             steps_counter.html(current);
+
+            homey_listing_progress_bar_child();
+            
         });
 
         // Back button click action
@@ -634,6 +638,33 @@ jQuery(document).ready( function($) {
                 $('.form-step-gal1, #media-tab').css('display', 'none');
             }
         });
+
+        function homey_listing_progress_bar_child(){
+            var informationTab = $('.form-step-information');
+            var pricing = $('.form-step-pricing');
+            var media = $('.form-step-media');
+            var features = $('.form-step-features');
+            var location = $('.form-step-location');
+            if(informationTab.hasClass('active')){
+                $('.progress-bar-success').css('width', '16.67%');
+                $('.cus-progress-bar-text').text('Your listing is 16.67% done.');
+            } else if (pricing.hasClass('active')) {
+                $('.progress-bar-success').css('width', '33.34%');
+                $('.cus-progress-bar-text').text('Your listing is 33.34% done.');
+            } else if (media.hasClass('active')) {
+                $('.progress-bar-success').css('width', '50%');
+                $('.cus-progress-bar-text').text('Your listing is 50% done.');
+            } else if (features.hasClass('active')) {
+                $('.progress-bar-success').css('width', '66.67%');
+                $('.cus-progress-bar-text').text('Your listing is 66.67% done.');
+            } else if (location.hasClass('active')) {
+                $('.progress-bar-success').css('width', '83.34%');
+                $('.cus-progress-bar-text').text('Your listing is 83.34% done.');
+            } else {
+                $('.progress-bar-success').css('width', '100%');
+                $('.cus-progress-bar-text').text('Your listing is 100% done.');
+            }
+        }
 
         /* ------------------------------------------------------------------------ */
         /*  Print Invoice

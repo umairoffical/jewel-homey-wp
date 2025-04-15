@@ -1,7 +1,7 @@
 <?php
 global $homey_local, $hide_fields;
 ?>
-<div class="form-step">
+<div class="form-step form-step-features">
     <!--step information-->
     <div class="block">
         <div class="block-title">

@@ -3,7 +3,7 @@ global $homey_local, $hide_fields;
 $openning_hours_list = homey_option('openning_hours_list');
 $openning_hours_list_array = explode( ',', $openning_hours_list );
 ?>
-<div class="form-step">
+<div class="form-step form-step-information">
     <!--step information-->
     <div class="block">
         <div class="block-title">
@@ -168,7 +168,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[mon_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[mon_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -176,7 +176,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[mon_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[mon_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -184,9 +184,9 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
                                         <label for=""><?php esc_html_e('Open Time', 'homey-child'); ?></label>
-                                        <select name="mon_open" class="form-control" name="timeperiod[mon_open_time]">
+                                        <select class="form-control" name="timeperiod[mon_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -195,9 +195,9 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
                                         <label for=""><?php esc_html_e('Close Time', 'homey-child'); ?></label>
-                                        <select name="mon_open" class="form-control" name="timeperiod[mon_close_time]">
+                                        <select class="form-control" name="timeperiod[mon_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -215,7 +215,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[tue_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[tue_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -223,7 +223,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[tue_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[tue_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -231,8 +231,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[tue_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[tue_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -241,8 +241,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[tue_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[tue_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -260,7 +260,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[wed_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[wed_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -268,7 +268,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[wed_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[wed_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -276,8 +276,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[wed_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[wed_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -286,8 +286,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[wed_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[wed_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -305,7 +305,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[thu_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[thu_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -313,7 +313,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[thu_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[thu_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -321,8 +321,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[thu_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[thu_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -331,8 +331,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[thu_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[thu_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -350,7 +350,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[fri_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[fri_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -358,7 +358,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[fri_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[fri_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -366,8 +366,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[fri_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[fri_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -376,8 +376,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[fri_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[fri_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -395,7 +395,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[sat_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[sat_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -403,7 +403,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[sat_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[sat_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -411,8 +411,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[sat_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[sat_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -421,8 +421,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[sat_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[sat_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -440,7 +440,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                         <div class="check-day-availability">
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab"> 
-                                                    <input type="radio" name="timeperiod[sun_available]" value="yes" checked="checked">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[sun_available]" value="yes">
                                                     <span class="control-text"><?php esc_html_e('Yes', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -448,7 +448,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                             <div class="form-group mb-0">
                                                 <label class="control control--radio radio-tab">
-                                                    <input type="radio" name="timeperiod[sun_available]" value="no">
+                                                    <input type="radio" class="radio_check_avaialable" name="timeperiod[sun_available]" value="no" checked="checked">
                                                     <span class="control-text"><?php esc_html_e('No', 'homey-child'); ?></span>
                                                     <span class="control__indicator"></span>
                                                     <span class="radio-tab-inner"></span>
@@ -456,8 +456,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[sun_open_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[sun_open_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {
@@ -466,8 +466,8 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3 col-xs-6">
-                                        <select name="mon_open" class="form-control" name="timeperiod[sun_close_time]">
+                                    <div class="col-sm-3 col-xs-6 check_is_available" style="display: none;">
+                                        <select class="form-control" name="timeperiod[sun_close_time]">
                                             <?php
                                                 $times = homey_get_times_options();
                                                 foreach ($times as $key => $time) {

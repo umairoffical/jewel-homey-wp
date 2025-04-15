@@ -98,5 +98,64 @@ jQuery(document).ready(function($) {
             alert('Please enter a rule');
         }
     });
+
+    $('.radio_check_avaialable').on('click',function(e){
+        var checkedVal = $(this).val();
+        var parent = $(this).closest('.timeperiod-single-day');
+        var timeperiod = parent.find('.check_is_available');
+
+        if(checkedVal == 'yes'){
+            $(timeperiod.find('input')).attr('required','required');
+            timeperiod.show();
+        }else{
+            $(timeperiod.find('input')).attr('required','');
+            timeperiod.hide();
+        }
+    });
+
+    // $('.btn-step-next').on('click',function(e){
+    //     if($(".form-step-gal1").hasClass('active')){
+    //         if($(".upload-gallery-thumb").length < 1){
+    //             $("#homey_gallery_dragDrop").css("border", "3px dashed red");
+    //             $('.form-step-features').removeClass('active');
+    //             $('.form-step-features').hide();
+    //             $(".form-step-gal1").addClass('active');
+    //             $(".form-step-gal1").show();
+    //             alert('Please upload at least one image');
+    //         }
+    //     }
+    // });
     
+    // $('.btn-step-next').on('click',function(e){
+    //     var informationTab = $('.form-step-information');
+    //     var pricing = $('.form-step-pricing');
+    //     var media = $('.form-step-media');
+    //     var features = $('.form-step-features');
+    //     var location = $('.form-step-location');
+    //     if(informationTab.hasClass('active')){
+    //         console.log('Information Tab');
+    //         $('.progress-bar-success').css('width', '16.67%');
+    //         $('.cus-progress-bar-text').text('Your listing is 16.67% done.');
+    //     } else if (pricing.hasClass('active')) {
+    //         console.log('Pricing Tab');
+    //         $('.progress-bar-success').css('width', '33.34%');
+    //         $('.cus-progress-bar-text').text('Your listing is 33.34% done.');
+    //     } else if (media.hasClass('active')) {
+    //         console.log('Media Tab');
+    //         $('.progress-bar-success').css('width', '50%');
+    //         $('.cus-progress-bar-text').text('Your listing is 50% done.');
+    //     } else if (features.hasClass('active')) {
+    //         console.log('Features Tab');
+    //         $('.progress-bar-success').css('width', '66.67%');
+    //         $('.cus-progress-bar-text').text('Your listing is 66.67% done.');
+    //     } else if (location.hasClass('active')) {
+    //         console.log('Location Tab');
+    //         $('.progress-bar-success').css('width', '83.34%');
+    //         $('.cus-progress-bar-text').text('Your listing is 83.34% done.');
+    //     } else {
+    //         console.log('Other tab Tab');
+    //         $('.progress-bar-success').css('width', '100%');
+    //         $('.cus-progress-bar-text').text('Your listing is 100% done.');
+    //     }
+    // });
 }); 

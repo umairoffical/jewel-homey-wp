@@ -36,7 +36,7 @@ if(@$hide_fields['price_postfix'] != 1) {
     $postfix_classes = 'col-sm-6 col-xs-12';
 }
 ?>
-<div class="form-step">
+<div class="form-step form-step-pricing">
     <!--step information-->
     <div class="block">
         <div class="block-title">
