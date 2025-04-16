@@ -7,11 +7,11 @@ if(!empty($data)){
     $rulesText = $data['title'];
 
     if($is_allowed == 'yes') {
-        $yes_check = 'checked';
+        $yes_check = 'checked="checked"';
         $no_check = '';
     } else {
         $yes_check = '';
-        $no_check = 'checked';
+        $no_check = 'checked="checked"';
     }
 }else{
     $no_check = 'checked';
@@ -26,7 +26,7 @@ if(!empty($data)){
     <div class="rules-fileds-sections">
         <div class="form-group">
             <label class="control control--radio radio-tab">
-                <input name="rule[<?php echo $id; ?>][is_allowed]" value="yes" type="radio" checked="<?php echo $yes_check; ?>">
+                <input name="rule[<?php echo $id; ?>][is_allowed]" value="yes" type="radio" <?php echo $yes_check; ?>>
                 <span class="control-text"><?php esc_html_e('Yes','homey-child'); ?></span>
                 <span class="control__indicator"></span>
                 <span class="radio-tab-inner"></span>
@@ -34,7 +34,7 @@ if(!empty($data)){
         </div>
         <div class="form-group">
             <label class="control control--radio radio-tab">
-                <input name="rule[<?php echo $id; ?>][is_allowed]" value="no" type="radio" checked="<?php echo $no_check; ?>">
+                <input name="rule[<?php echo $id; ?>][is_allowed]" value="no" type="radio" <?php echo $no_check; ?>>
                 <span class="control-text"><?php esc_html_e('No','homey-child'); ?></span>
                 <span class="control__indicator"></span>
                 <span class="radio-tab-inner"></span>

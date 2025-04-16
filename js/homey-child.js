@@ -99,6 +99,11 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('.remove-btn-single-rule').on('click',function(e){
+        e.preventDefault();
+        $(this).closest('.single-rules-row').remove();
+    });
+
     $('.radio_check_avaialable').on('click',function(e){
         var checkedVal = $(this).val();
         var parent = $(this).closest('.timeperiod-single-day');

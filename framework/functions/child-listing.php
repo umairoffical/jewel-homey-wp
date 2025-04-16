@@ -83,6 +83,10 @@ function homey_listing_gallery_upload() {
 function listing_submission_filter($new_listing) {
     global $current_user;
 
+    // echo "<pre>";
+    // print_r($_POST['rule']);
+    // wp_die();
+
     wp_get_current_user();
     $userID = $current_user->ID;
     $user_email = $current_user->user_email;

@@ -42,6 +42,121 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
             <h3 class="title"><?php echo esc_attr(homey_option('ad_terms_rules')); ?></h3>
     </div>
     <div class="block-body">
+
+        <?php if($hide_fields['cancel_policy'] != 1) { ?>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <!--<div class="form-group">
+                        <label for="cancel"><?php echo esc_attr(homey_option('ad_cancel_policy')).homey_req('cancellation_policy'); ?></label>
+                        <textarea name="cancellation_policy" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_cancel_policy_plac'), 'homey'); ?>" <?php homey_required('cancellation_policy'); ?>><?php echo $cancellation_policy; ?></textarea>
+                    </div>-->
+
+                    <div class="form-group">
+                        <label for="cancel"><?php echo esc_attr(homey_option('ad_cancel_policy')).homey_req('cancellation_policy'); ?></label>
+                        <select name="cancellation_policy" class="selectpicker" data-live-search="false" data-live-search-style="begins" title="<?php echo esc_attr(homey_option('ad_cancel_policy')); ?>">
+                            <option <?php if($cancellation_policy < 1){ echo 'selected'; } ?> value=""><?php echo esc_html__("Select Cancellation Policy", "homey"); ?></option>
+                            <?php
+
+                $args = array(
+                    'post_type' => 'homey_cancel_policy',
+                    'posts_per_page' => 100
+                );
+
+                $policies_data = '';
+
+                $policies_qry = new WP_Query($args);
+                if ($policies_qry->have_posts()):
+                    while ($policies_qry->have_posts()): $policies_qry->the_post();
+                        $is_selected = $cancellation_policy == get_the_ID() ? "selected='selected'" : '';
+                        echo '<option '.$is_selected.' value="'.get_the_ID().'">'.get_the_title().'</option>';
+                        endwhile;
+                endif;
+                ?>
+                        </select>
+                        <?php  wp_reset_postdata(); ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <div class="row">
+
+            <?php if($homey_booking_type == 'per_hour') { ?>
+
+                <?php if($hide_fields['min_book_days'] != 1) { ?>
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label for="min_book_hours"><?php echo esc_attr(homey_option('ad_min_hours_booking')).homey_req('min_book_days'); ?></label>
+                        <input type="text" name="min_book_hours" <?php homey_required('min_book_days'); ?> value="<?php echo esc_attr($min_book_hours); ?>" class="form-control" id="min_book_hours" placeholder="<?php echo esc_attr(homey_option('ad_min_hours_booking_plac')); ?>">
+                    </div>
+                </div>
+                <?php } ?>
+
+                <?php } elseif($homey_booking_type == 'per_week') {
+
+                    if($hide_fields['min_book_weeks'] != 1) { ?>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="min_book_weeks"><?php echo esc_attr(homey_option('ad_min_weeks_booking')).homey_req('min_book_weeks'); ?></label>
+                            <input type="text" name="min_book_weeks" value="<?php echo esc_attr($min_book_weeks); ?>" class="form-control" <?php homey_required('min_book_weeks'); ?> id="min_book_weeks" placeholder="<?php echo esc_attr(homey_option('ad_min_weeks_booking_plac')); ?>">
+                        </div>
+                    </div>
+                    <?php }
+
+                    if($hide_fields['max_book_weeks'] != 1) { ?>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="max_book_weeks"><?php echo esc_attr(homey_option('ad_max_weeks_booking')).homey_req('max_book_weeks'); ?></label>
+                            <input type="text" name="max_book_weeks" value="<?php echo esc_attr($max_book_weeks); ?>" class="form-control" <?php homey_required('max_book_weeks'); ?> id="max_book_weeks" placeholder="<?php echo esc_attr(homey_option('ad_max_weeks_booking_plac')); ?>">
+                        </div>
+                    </div>
+                    <?php }
+
+
+            } elseif($homey_booking_type == 'per_month') {
+
+                    if($hide_fields['min_book_months'] != 1) { ?>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="min_book_months"><?php echo esc_attr(homey_option('ad_min_months_booking')).homey_req('min_book_months'); ?></label>
+                            <input type="text" name="min_book_months" value="<?php echo esc_attr($min_book_months); ?>" class="form-control" <?php homey_required('min_book_months'); ?> id="min_book_months" placeholder="<?php echo esc_attr(homey_option('ad_min_months_booking_plac')); ?>">
+                        </div>
+                    </div>
+                    <?php }
+
+                    if($hide_fields['max_book_months'] != 1) { ?>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="max_book_months"><?php echo esc_attr(homey_option('ad_max_months_booking')).homey_req('max_book_months'); ?></label>
+                            <input type="text" name="max_book_months" value="<?php echo esc_attr($max_book_months); ?>" class="form-control" <?php homey_required('max_book_months'); ?> id="max_book_months" placeholder="<?php echo esc_attr(homey_option('ad_max_months_booking_plac')); ?>">
+                        </div>
+                    </div>
+                    <?php }
+
+
+            } else { ?>
+
+                <?php if($hide_fields['min_book_days'] != 1) { ?>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="min_book_days"><?php echo esc_attr(homey_option('ad_min_days_booking')).homey_req('min_book_days'); ?></label>
+                        <input type="text" name="min_book_days" <?php homey_required('min_book_days'); ?> value="<?php echo esc_attr($min_book_days); ?>" class="form-control" id="min_book_days" placeholder="<?php echo esc_attr(homey_option('ad_min_days_booking_plac')); ?>">
+                    </div>
+                </div>
+                <?php } ?>
+
+                <?php if($hide_fields['max_book_days'] != 1) { ?>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="max_book_days"><?php echo esc_attr(homey_option('ad_max_days_booking')).homey_req('max_book_days'); ?></label>
+                        <input type="text" name="max_book_days" <?php homey_required('max_book_days'); ?> value="<?php echo esc_attr($max_book_days); ?>" class="form-control" id="max_book_days" placeholder="<?php echo esc_attr(homey_option('ad_max_days_booking_plac')); ?>">
+                    </div>
+                </div>
+                <?php } ?>
+            <?php } ?>
+
+        </div>
+
         <div class="row mb-20">
             <div class="col-sm-12 col-xs-12">
                 <div class="form-group">
@@ -92,6 +207,7 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
             </div>
             <div class="col-sm-12 col-xs-12 listing-rules-row mt-10">
                 <?php 
+                if(!empty($homey_rules)):
                     foreach($homey_rules as $id => $rule):
                         $args = array(
                             'id' => $id,
@@ -101,6 +217,7 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
 
                         get_template_part('template-parts/dashboard/submit-listing/single-rule', null, $args);
                     endforeach; 
+                endif;
                 ?>
             </div>
         </div>

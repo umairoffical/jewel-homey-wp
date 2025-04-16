@@ -605,8 +605,9 @@ jQuery(document).ready( function($) {
                     btnsubmitBlock.attr("disabled", true);
                     var validImageLength = validateImageLength();
 
-                    if(validImageLength && validCancelPolicy) {
+                    if(validImageLength) {
                         btnsubmitBlock.attr("disabled", true);
+                        alert('Thank you for your submission, our team is reviewing. Once approved, your listing will be live and viewable (as Publish) within your dashboard.');
                         form.submit();
                     } else {
                         btnsubmitBlock.attr("disabled", false);
