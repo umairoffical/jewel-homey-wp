@@ -176,3 +176,22 @@ Template: homey
     display: block;
     margin:auto 0px;
 }
+
+#homey-single-map-child {
+    height: 400px;
+    width: 100%;
+    position: relative;
+}
+
+.leaflet-container {
+    z-index: 1;
+}
+
+/* Custom circle style */
+.leaflet-circle {
+    stroke: #FF0000;
+    stroke-opacity: 0.2;
+    stroke-width: 2;
+    fill: #FF0000;
+    fill-opacity: 0.1;
+}
