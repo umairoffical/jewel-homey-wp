@@ -157,6 +157,37 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
 
         </div>
 
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="start_hour"><?php echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
+                    <select name="start_hour" class="selectpicker" <?php homey_required('start_hour'); ?> id="start_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
+                            <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
+                            <?php 
+                            for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
+                                echo '<option '.selected(date('H:i',$halfhour), $get_start_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+                            }
+                            ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="end_hour"><?php echo esc_html__('End Business Hour', 'homey').homey_req('end_hour'); ?></label>
+                    <select name="end_hour" class="selectpicker" <?php homey_required('end_hour'); ?> id="end_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
+                        <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
+                        <?php 
+                        for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
+                            echo '<option '.selected(date('H:i',$halfhour), $get_end_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+
         <div class="row mb-20">
             <div class="col-sm-12 col-xs-12">
                 <div class="form-group">

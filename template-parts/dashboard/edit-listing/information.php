@@ -141,6 +141,69 @@ $timeperiod_availability = get_post_meta($lisitng_id,'homey_timeperiod_availbili
             </div>
             <?php } ?>
 
+            <?php if($hide_fields['listing_bedrooms'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="listing_bedrooms"> <?php echo esc_attr(homey_option('ad_no_of_bedrooms')).homey_req('listing_bedrooms'); ?> </label>
+                    <input type="text" name="listing_bedrooms" <?php homey_required('listing_bedrooms'); ?> id="listing_bedrooms" value="<?php homey_field_meta('listing_bedrooms'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_bedrooms_plac')); ?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['guests'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="guests"> <?php echo esc_attr(homey_option('ad_no_of_guests')).homey_req('guests'); ?> </label>
+                    <input type="number" name="guests" id="guests" <?php homey_required('guests'); ?> value="<?php homey_field_meta('guests'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_guests_plac')); ?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['beds'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="beds"> <?php echo esc_attr(homey_option('ad_no_of_beds')).homey_req('beds'); ?> </label>
+                    <input type="text" name="beds" id="beds" <?php homey_required('beds'); ?> value="<?php homey_field_meta('beds'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_beds_plac')); ?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['baths'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="baths"> <?php echo esc_attr(homey_option('ad_no_of_bathrooms')).homey_req('baths'); ?> </label>
+                    <input type="text" name="baths" id="baths" <?php homey_required('baths'); ?> value="<?php homey_field_meta('baths'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_bathrooms_plac')); ?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['listing_rooms'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="listing_rooms"> <?php echo esc_attr(homey_option('ad_listing_rooms')).homey_req('listing_rooms'); ?> </label>
+                    <input type="text" class="form-control" value="<?php homey_field_meta('listing_rooms'); ?>" name="listing_rooms" id="listing_rooms" <?php homey_required('listing_rooms'); ?> placeholder="<?php echo esc_attr(homey_option('ad_listing_rooms_plac'));?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['listing_size'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="listing_size"> <?php echo esc_attr(homey_option('ad_listing_size')).homey_req('listing_size'); ?> </label>
+                    <input type="text" class="form-control" name="listing_size" value="<?php homey_field_meta('listing_size'); ?>" id="listing_size" <?php homey_required('listing_size'); ?> placeholder="<?php echo esc_attr(homey_option('ad_size_placeholder'));?>">
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if($hide_fields['listing_size_unit'] != 1) { ?>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="listing_size_unit"> <?php echo esc_attr(homey_option('ad_listing_size_unit')).homey_req('listing_size_unit'); ?> </label>
+                    <input type="text" class="form-control" name="listing_size_unit" value="<?php homey_field_meta('listing_size_unit'); ?>" <?php homey_required('listing_size_unit'); ?> id="listing_size_unit" placeholder="<?php echo esc_attr(homey_option('ad_listing_size_unit_plac'));?>">
+                </div>
+            </div>
+            <?php } ?>
+
             <div class="col-sm-12 col-xs-12 listing-opening-hours mt-15">
                 <div class="form-group">
                     <h4 class="mb-0"><?php esc_html_e('Opening Hours', 'homey-child'); ?></h4>
@@ -226,69 +289,6 @@ $timeperiod_availability = get_post_meta($lisitng_id,'homey_timeperiod_availbili
                     </div>
                 </div>
             </div>
-
-            <?php if($hide_fields['listing_bedrooms'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="listing_bedrooms"> <?php echo esc_attr(homey_option('ad_no_of_bedrooms')).homey_req('listing_bedrooms'); ?> </label>
-                    <input type="text" name="listing_bedrooms" <?php homey_required('listing_bedrooms'); ?> id="listing_bedrooms" value="<?php homey_field_meta('listing_bedrooms'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_bedrooms_plac')); ?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['guests'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="guests"> <?php echo esc_attr(homey_option('ad_no_of_guests')).homey_req('guests'); ?> </label>
-                    <input type="number" name="guests" id="guests" <?php homey_required('guests'); ?> value="<?php homey_field_meta('guests'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_guests_plac')); ?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['beds'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="beds"> <?php echo esc_attr(homey_option('ad_no_of_beds')).homey_req('beds'); ?> </label>
-                    <input type="text" name="beds" id="beds" <?php homey_required('beds'); ?> value="<?php homey_field_meta('beds'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_beds_plac')); ?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['baths'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="baths"> <?php echo esc_attr(homey_option('ad_no_of_bathrooms')).homey_req('baths'); ?> </label>
-                    <input type="text" name="baths" id="baths" <?php homey_required('baths'); ?> value="<?php homey_field_meta('baths'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_bathrooms_plac')); ?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['listing_rooms'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="listing_rooms"> <?php echo esc_attr(homey_option('ad_listing_rooms')).homey_req('listing_rooms'); ?> </label>
-                    <input type="text" class="form-control" value="<?php homey_field_meta('listing_rooms'); ?>" name="listing_rooms" id="listing_rooms" <?php homey_required('listing_rooms'); ?> placeholder="<?php echo esc_attr(homey_option('ad_listing_rooms_plac'));?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['listing_size'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="listing_size"> <?php echo esc_attr(homey_option('ad_listing_size')).homey_req('listing_size'); ?> </label>
-                    <input type="text" class="form-control" name="listing_size" value="<?php homey_field_meta('listing_size'); ?>" id="listing_size" <?php homey_required('listing_size'); ?> placeholder="<?php echo esc_attr(homey_option('ad_size_placeholder'));?>">
-                </div>
-            </div>
-            <?php } ?>
-
-            <?php if($hide_fields['listing_size_unit'] != 1) { ?>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="listing_size_unit"> <?php echo esc_attr(homey_option('ad_listing_size_unit')).homey_req('listing_size_unit'); ?> </label>
-                    <input type="text" class="form-control" name="listing_size_unit" value="<?php homey_field_meta('listing_size_unit'); ?>" <?php homey_required('listing_size_unit'); ?> id="listing_size_unit" placeholder="<?php echo esc_attr(homey_option('ad_listing_size_unit_plac'));?>">
-                </div>
-            </div>
-            <?php } ?>
 
             <?php if($hide_fields['affiliate_booking_link'] != 1) { ?>
             <div class="col-sm-12 col-xs-12">
