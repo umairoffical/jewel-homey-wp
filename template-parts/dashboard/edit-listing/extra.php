@@ -21,7 +21,7 @@ if($homey_booking_type == 'per_day_date') {
 ?>
 <div class="homey-extra-prices">
 <hr class="row-separator">
-<h3 class="sub-title"><?php echo esc_html__('Setup Extra Services Price', 'homey'); ?></h3>
+<h3 class="sub-title"><?php echo esc_html__('Add Ons', 'homey'); ?></h3>
 
 <div id="more_extra_services_main" class="custom-extra-prices">
     

@@ -54,11 +54,45 @@ if($icon_type == 'fontawesome_icon') {
 
 $lisitng_size = get_post_meta(get_the_ID(), 'homey_listing_size', true);
 $lisitng_size_unit = get_post_meta(get_the_ID(), 'homey_listing_size_unit', true);
+$parkings  = wp_get_post_terms( get_the_ID(), 'parking', array("fields" => "all"));
+$homey_min_book_hours = get_post_meta(get_the_ID(), 'homey_min_book_hours', true);
 ?>
 <div id="about-section" data-issue="this-is-test" class="about-section version-1">
 
     <?php if($guests != '' || $bedrooms != '' || $bathrooms != '' || $listing_type != '') { ?>
         <div class="block-bordered">
+
+            <?php if(!empty($lisitng_size)) { ?>
+                <div class="block-col block-col-25">
+                    <div class="block-icon">
+                        <i class="fa fa-arrows-h" aria-hidden="true" style="color:#3b4249;"></i>
+                    </div>
+                    <div><?php esc_html_e('Size','homey-child'); ?></div>
+                    <div><strong><?php echo esc_attr($lisitng_size).' '.esc_attr($lisitng_size_unit); ?></strong></div>
+                </div>
+            <?php } ?>
+
+            <?php if($hide_labels['sn_accom_label'] != 1 && $guests != '') { ?>
+                <div class="block-col block-col-25">
+                    <div class="block-icon">
+                        <?php echo ''.$acco_icon; ?>
+                    </div>
+                    <div><?php esc_html_e('Max Guests','homey-child'); ?></div>
+                    <div><strong><?php echo esc_attr($guests); ?> <?php echo esc_attr(homey_option('sn_guests_label')); ?></strong></div>
+                </div>
+            <?php } ?>
+
+            <!-- homey_min_book_hours -->
+            <?php if(!empty($homey_min_book_hours)) { ?>
+                <div class="block-col block-col-25">
+                    <div class="block-icon">
+                        <i class="fa fa-clock-o" aria-hidden="true" style="color:#3b4249;"></i>
+                    </div>
+                    <div><?php esc_html_e('Min Booking Hours','homey-child'); ?></div>
+                    <div><strong><?php echo esc_attr($homey_min_book_hours); ?> <?php esc_html_e('Hours'); ?></strong></div>
+                </div>
+            <?php } ?>
+
             <?php if($hide_labels['sn_type_label'] != 1 && $listing_type != '') { ?>
                 <div class="block-col block-col-25">
                     <div class="block-icon">
@@ -73,36 +107,6 @@ $lisitng_size_unit = get_post_meta(get_the_ID(), 'homey_listing_size_unit', true
                 </div>
             <?php } ?>
 
-            <?php if($hide_labels['sn_accom_label'] != 1 && $guests != '') { ?>
-                <div class="block-col block-col-25">
-                    <div class="block-icon">
-                        <?php echo ''.$acco_icon; ?>
-                    </div>
-                    <div><?php echo esc_attr(homey_option('sn_accom_label')); ?></div>
-                    <div><strong><?php echo esc_attr($guests); ?> <?php echo esc_attr(homey_option('sn_guests_label')); ?></strong></div>
-                </div>
-            <?php } ?>
-
-            <?php if($hide_labels['sn_bedrooms_label'] != 1 && $bedrooms != '') { ?>
-                <div class="block-col block-col-25">
-                    <div class="block-icon">
-                        <?php echo ''.$bedroom_icon; ?>
-                    </div>
-                    <div><?php echo esc_attr(homey_option('sn_bedrooms_label')); ?></div>
-                    <div><strong><?php echo esc_attr($bedrooms); ?> <?php echo esc_attr(homey_option('sn_bedrooms_label')); ?> / <?php echo esc_attr($beds); ?> <?php echo esc_attr(homey_option('sn_beds_label')); ?></strong></div>
-                </div>
-            <?php } ?>
-
-            <?php if(!empty($lisitng_size)) { ?>
-                <div class="block-col block-col-25">
-                    <div class="block-icon">
-                        <i class="fa fa-arrows-h" aria-hidden="true" style="color:#3b4249;"></i>
-                    </div>
-                    <div><?php esc_html_e('Size','homey-child'); ?></div>
-                    <div><strong><?php echo esc_attr($lisitng_size).' '.esc_attr($lisitng_size_unit); ?></strong></div>
-                </div>
-            <?php } ?>
-
         </div><!-- block-bordered -->
     <?php } ?>
 
@@ -113,6 +117,19 @@ $lisitng_size_unit = get_post_meta(get_the_ID(), 'homey_listing_size_unit', true
                 <?php the_content(); ?>
             </div>
         </div><!-- block-body -->
+    <?php } ?>
+
+    <?php if(!empty($parkings)) { ?>
+    <div class="block">
+        <div class="block-body">
+            <h3 class="title mb-10"><?php esc_html_e('Parking','homey-child'); ?></h3>
+            <ul class="detail-list detail-list-2-cols">
+                <?php foreach($parkings as $parking): ?>
+                    <li><i class="<?php echo $parking->description != '' ? $parking->description : 'homey-icon homey-icon-arrow-right-1'; ?>" aria-hidden="true"></i> <?php echo esc_attr($parking->name); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
     <?php } ?>
 
     <?php

@@ -51,6 +51,16 @@ $rules = get_post_meta(get_the_ID(), 'homey_rules', true);
     <div class="block">
         <div class="block-section">
             <div class="block-body">
+                <h3 class="title mb-10"><?php echo esc_attr($homey_local['cancel_policy']); ?></h3>
+                <?php if(!empty($cancellation_policy)) { ?>
+                    <div><?php echo $cancellation_policy; ?></div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-section">
+            <div class="block-body">
                 <div class="block-left">
                     <h3 class="title"><?php echo esc_attr(homey_option('sn_terms_rules')); ?></h3>
                 </div><!-- block-left -->
@@ -63,40 +73,10 @@ $rules = get_post_meta(get_the_ID(), 'homey_rules', true);
                             <strong><?php echo ucfirst($rule['is_allowed']); ?></strong>
                         </li> 
                         <?php } ?>
-
-                        <?php //if(@$hide_labels['sn_pets_allowed'] != 1) { ?>
-                        <!-- <li>
-                            <i class="<?php //echo esc_attr($pets_allow); ?>" aria-hidden="true"></i> 
-                            <?php //echo esc_attr(homey_option('sn_pets_allowed')); ?>:
-                            <strong><?php //echo esc_attr($pets_text); ?></strong>
-                        </li> -->
-                        <?php //} ?>
-
-                        <?php //if(@$hide_labels['sn_party_allowed'] != 1) { ?>
-                        <!-- <li>
-                            <i class="<?php //echo esc_attr($party_allow); ?>" aria-hidden="true"></i> 
-                            <?php //echo esc_attr(homey_option('sn_party_allowed')); ?>:
-                            <strong><?php //echo esc_attr($party_text); ?></strong>
-                        </li> -->
-                        <?php //} ?>
-
-                        <?php //if(@$hide_labels['sn_children_allowed'] != 1) { ?>
-                        <!-- <li>
-                            <i class="<?php //echo esc_attr($children_allow); ?>" aria-hidden="true"></i> 
-                            <?php //echo esc_attr(homey_option('sn_children_allowed')); ?>:
-                            <strong><?php //echo esc_attr($children_text); ?></strong>
-                        </li> -->
-                        <?php //} ?>
                     </ul>
 
-                    <?php if( (!empty($additional_rules) && @$hide_labels['sn_add_rules_info'] != 1) || !empty($cancellation_policy)) { ?>
+                    <?php if( (!empty($additional_rules) && @$hide_labels['sn_add_rules_info'] != 1)) { ?>
                     <div class="detail-list">
-
-                        <?php if(!empty($cancellation_policy)) { ?>
-                            <div><strong><?php echo esc_attr($homey_local['cancel_policy']); ?></strong></div>
-                            <div><?php echo $cancellation_policy; ?></div>
-                        <?php } ?>
-
                         <?php if(!empty($additional_rules) && @$hide_labels['sn_add_rules_info'] != 1) { ?>
                         <div><strong><?php echo esc_attr(homey_option('sn_add_rules_info')); ?></strong></div>
                         <div><?php echo ''.($additional_rules); ?></div>

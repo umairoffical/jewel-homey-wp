@@ -80,84 +80,6 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
         <?php } ?>
 
         <div class="row">
-
-            <?php if($homey_booking_type == 'per_hour') { ?>
-
-                <?php if($hide_fields['min_book_days'] != 1) { ?>
-                <div class="col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="min_book_hours"><?php echo esc_attr(homey_option('ad_min_hours_booking')).homey_req('min_book_days'); ?></label>
-                        <input type="text" name="min_book_hours" <?php homey_required('min_book_days'); ?> value="<?php echo esc_attr($min_book_hours); ?>" class="form-control" id="min_book_hours" placeholder="<?php echo esc_attr(homey_option('ad_min_hours_booking_plac')); ?>">
-                    </div>
-                </div>
-                <?php } ?>
-
-                <?php } elseif($homey_booking_type == 'per_week') {
-
-                    if($hide_fields['min_book_weeks'] != 1) { ?>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="min_book_weeks"><?php echo esc_attr(homey_option('ad_min_weeks_booking')).homey_req('min_book_weeks'); ?></label>
-                            <input type="text" name="min_book_weeks" value="<?php echo esc_attr($min_book_weeks); ?>" class="form-control" <?php homey_required('min_book_weeks'); ?> id="min_book_weeks" placeholder="<?php echo esc_attr(homey_option('ad_min_weeks_booking_plac')); ?>">
-                        </div>
-                    </div>
-                    <?php }
-
-                    if($hide_fields['max_book_weeks'] != 1) { ?>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="max_book_weeks"><?php echo esc_attr(homey_option('ad_max_weeks_booking')).homey_req('max_book_weeks'); ?></label>
-                            <input type="text" name="max_book_weeks" value="<?php echo esc_attr($max_book_weeks); ?>" class="form-control" <?php homey_required('max_book_weeks'); ?> id="max_book_weeks" placeholder="<?php echo esc_attr(homey_option('ad_max_weeks_booking_plac')); ?>">
-                        </div>
-                    </div>
-                    <?php }
-
-
-            } elseif($homey_booking_type == 'per_month') {
-
-                    if($hide_fields['min_book_months'] != 1) { ?>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="min_book_months"><?php echo esc_attr(homey_option('ad_min_months_booking')).homey_req('min_book_months'); ?></label>
-                            <input type="text" name="min_book_months" value="<?php echo esc_attr($min_book_months); ?>" class="form-control" <?php homey_required('min_book_months'); ?> id="min_book_months" placeholder="<?php echo esc_attr(homey_option('ad_min_months_booking_plac')); ?>">
-                        </div>
-                    </div>
-                    <?php }
-
-                    if($hide_fields['max_book_months'] != 1) { ?>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="max_book_months"><?php echo esc_attr(homey_option('ad_max_months_booking')).homey_req('max_book_months'); ?></label>
-                            <input type="text" name="max_book_months" value="<?php echo esc_attr($max_book_months); ?>" class="form-control" <?php homey_required('max_book_months'); ?> id="max_book_months" placeholder="<?php echo esc_attr(homey_option('ad_max_months_booking_plac')); ?>">
-                        </div>
-                    </div>
-                    <?php }
-
-
-            } else { ?>
-
-                <?php if($hide_fields['min_book_days'] != 1) { ?>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="min_book_days"><?php echo esc_attr(homey_option('ad_min_days_booking')).homey_req('min_book_days'); ?></label>
-                        <input type="text" name="min_book_days" <?php homey_required('min_book_days'); ?> value="<?php echo esc_attr($min_book_days); ?>" class="form-control" id="min_book_days" placeholder="<?php echo esc_attr(homey_option('ad_min_days_booking_plac')); ?>">
-                    </div>
-                </div>
-                <?php } ?>
-
-                <?php if($hide_fields['max_book_days'] != 1) { ?>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="max_book_days"><?php echo esc_attr(homey_option('ad_max_days_booking')).homey_req('max_book_days'); ?></label>
-                        <input type="text" name="max_book_days" <?php homey_required('max_book_days'); ?> value="<?php echo esc_attr($max_book_days); ?>" class="form-control" id="max_book_days" placeholder="<?php echo esc_attr(homey_option('ad_max_days_booking_plac')); ?>">
-                    </div>
-                </div>
-                <?php } ?>
-            <?php } ?>
-
-        </div>
-
-        <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="start_hour"><?php echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
@@ -189,7 +111,13 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
         </div>
 
         <div class="row mb-20">
-            <div class="col-sm-12 col-xs-12">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="min_book_hours"><?php echo esc_attr(homey_option('ad_min_hours_booking')).homey_req('min_book_days'); ?></label>
+                    <input type="number" name="min_book_hours" <?php homey_required('min_book_days'); ?> value="<?php echo esc_attr($min_book_hours); ?>" class="form-control" id="min_book_hours" placeholder="<?php echo esc_attr(homey_option('ad_min_hours_booking_plac')); ?>">
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label><?php esc_html_e('How many parking spots are available?','homey-child'); ?></label>
                     <input type="number" name="parking_spots" id="parking_spots" class="form-control" value="<?php echo $slots; ?>" placeholder="<?php esc_html_e('Enter Number of Parking Spots','homey-child'); ?>">

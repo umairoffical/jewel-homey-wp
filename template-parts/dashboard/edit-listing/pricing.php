@@ -90,7 +90,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
                <?php if($homey_booking_type == 'per_day_date') { ?>
                         <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <label for="night-price"><?php echo esc_html__('Price Per Day', 'homey').homey_req('night_price'); ?></label>
+                                <label for="night-price"><?php echo esc_html__('Price Per Hour', 'homey').homey_req('night_price'); ?></label>
                                 <input type="text" name="day_date_price" value="<?php echo esc_attr($day_date_price); ?>" class="form-control" <?php homey_required('night_price'); ?> id="day_date_price" placeholder="<?php echo esc_html__('Enter price for 1 day', 'homey'); ?>">
                             </div>
                         </div>
