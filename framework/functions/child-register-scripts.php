@@ -264,7 +264,7 @@ function homey_scripts() {
     }
 
     // Ajax Calls
-    wp_enqueue_script('homey-ajax-calls', get_template_directory_uri() . '/js/homey-ajax'.$js_minify_prefix.'.js', array('jquery', 'bootstrap'), HOMEY_THEME_VERSION, true);
+    wp_enqueue_script('homey-ajax-calls', get_stylesheet_directory_uri() . '/js/homey-ajax'.$js_minify_prefix.'.js', array('jquery', 'bootstrap'), HOMEY_THEME_VERSION, true);
     wp_localize_script('homey-ajax-calls', 'HOMEY_ajax_vars',
         array(
             'admin_url' => get_admin_url(),
@@ -768,6 +768,7 @@ function homey_scripts() {
                 'homey_timezone' => get_option('timezone_string'),
                 'homey_current_lang' => $homey_current_lang,
                 'edit_tab' => isset($_GET['tab']) ? $_GET['tab'] : '',
+                'is_edit_listing' => isset($_GET['edit_listing']) ? $_GET['edit_listing'] : '',
             );
             wp_localize_script('homey-listing', 'Homey_Listing', $listing_data);
         }

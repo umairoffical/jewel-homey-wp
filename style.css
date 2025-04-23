@@ -195,6 +195,12 @@ Template: homey
     fill: #FF0000;
     fill-opacity: 0.1;
 }
-.select-listings-guests .btn.dropdown-toggle.bs-placeholder.btn-default {
+/* .select-listings-guests .btn.dropdown-toggle.bs-placeholder.btn-default {
     padding-left: 35px;
+} */
+.select-listings-guests .filter-option.pull-left {
+    padding-left: 25px !important;
+}
+.select-listings-guests .btn.dropdown-toggle:hover .select-listings-guests::after{
+    display: block !important;
 }

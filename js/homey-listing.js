@@ -62,6 +62,8 @@ jQuery(document).ready( function($) {
         var booking_start_hour = Homey_Listing.booking_start_hour;
         var booking_end_hour = Homey_Listing.booking_end_hour;
 
+        var is_listing_edit = Homey_Listing.is_edit_listing;
+
         if( booked_hours_array !=='' && booked_hours_array.length !== 0 ) {
             booked_hours_array   = JSON.parse (booked_hours_array);
         }
@@ -607,7 +609,9 @@ jQuery(document).ready( function($) {
 
                     if(validImageLength) {
                         btnsubmitBlock.attr("disabled", true);
-                        alert('Thank you for your submission, our team is reviewing. Once approved, your listing will be live and viewable (as Publish) within your dashboard.');
+                        if(!is_listing_edit){
+                            alert('Thank you for your submission, our team is reviewing. Once approved, your listing will be live and viewable (as Publish) within your dashboard.');
+                        }
                         form.submit();
                     } else {
                         btnsubmitBlock.attr("disabled", false);
@@ -1481,7 +1485,7 @@ jQuery(document).ready( function($) {
                     mime_types : [
                         { title : verify_file_type, extensions : "jpg,jpeg,gif,png" }
                     ],
-                    max_file_size: '10m',//image_max_file_size,
+                    max_file_size: '30m',//image_max_file_size,
                     prevent_duplicates: false
                 }
             });

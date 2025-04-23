@@ -27,7 +27,11 @@ function generate_listing_rules(){
     
 }
 
-// HOMEY LISTING GALLERY UPLOAD
+/*-----------------------------------------------------------------------------------*/
+/*  Upload Gallery Images
+/*-----------------------------------------------------------------------------------*/
+add_action('wp_ajax_homey_listing_gallery_upload', 'homey_listing_gallery_upload');    // only for logged in user
+add_action('wp_ajax_nopriv_homey_listing_gallery_upload', 'homey_listing_gallery_upload');
 function homey_listing_gallery_upload() {
 
     // Check security Nonce
@@ -537,6 +541,11 @@ function listing_submission_filter($new_listing) {
             update_post_meta($listing_id, $prefix . 'additional_rules', $_POST['additional_rules']);
         }
 
+        // Overtime Policy Rules
+        if (isset($_POST['overtime_policy'])) {
+            update_post_meta($listing_id, $prefix . 'overtime_policy', $_POST['overtime_policy']);
+        }
+
         if (isset($_POST['homey_accomodation'])) {
             $homey_accomodation = $_POST['homey_accomodation'];
             if (!empty($homey_accomodation)) {
@@ -722,6 +731,15 @@ function listing_submission_filter($new_listing) {
                 $facilities_array[] = intval($facility_id);
             }
             wp_set_object_terms($listing_id, $facilities_array, 'listing_facility');
+        }
+
+        // Facilities
+        if (isset($_POST['listing_accessibility'])) {
+            $facilities_array = array();
+            foreach ($_POST['listing_accessibility'] as $facility_id) {
+                $facilities_array[] = intval($facility_id);
+            }
+            wp_set_object_terms($listing_id, $facilities_array, 'listing_accessibility');
         }
 
 

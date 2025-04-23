@@ -46,14 +46,36 @@ if($children != 1) {
 }
 
 $rules = get_post_meta(get_the_ID(), 'homey_rules', true);
+$location_rules = get_post_meta(get_the_ID(), 'homey_additional_rules', true);
+$overtime_policy = get_post_meta(get_the_ID(), 'homey_overtime_policy', true);
 ?>
 <div id="rules-section" class="rules-section">
+    <div class="block">
+        <div class="block-section">
+            <div class="block-body">
+                <h3 class="title mb-10"><?php esc_html_e('Location Rules', 'homey-child'); ?></h3>
+                <?php if(!empty($location_rules)) { ?>
+                    <div><?php echo $location_rules; ?></div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
     <div class="block">
         <div class="block-section">
             <div class="block-body">
                 <h3 class="title mb-10"><?php echo esc_attr($homey_local['cancel_policy']); ?></h3>
                 <?php if(!empty($cancellation_policy)) { ?>
                     <div><?php echo $cancellation_policy; ?></div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-section">
+            <div class="block-body">
+                <h3 class="title mb-10"><?php esc_html_e('Overtime Policy', 'homey-child'); ?></h3>
+                <?php if(!empty($overtime_policy)) { ?>
+                    <div><?php echo $overtime_policy; ?></div>
                 <?php } ?>
             </div>
         </div>
@@ -74,16 +96,6 @@ $rules = get_post_meta(get_the_ID(), 'homey_rules', true);
                         </li> 
                         <?php } ?>
                     </ul>
-
-                    <?php if( (!empty($additional_rules) && @$hide_labels['sn_add_rules_info'] != 1)) { ?>
-                    <div class="detail-list">
-                        <?php if(!empty($additional_rules) && @$hide_labels['sn_add_rules_info'] != 1) { ?>
-                        <div><strong><?php echo esc_attr(homey_option('sn_add_rules_info')); ?></strong></div>
-                        <div><?php echo ''.($additional_rules); ?></div>
-                        <?php } ?>
-                    </div>
-                    <?php } ?>
-
                 </div><!-- block-right -->
             </div><!-- block-body -->
         </div><!-- block-section -->

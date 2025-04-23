@@ -47,10 +47,17 @@ $start_hours_list = '';
 $end_hours_list = '';
 $start_hour = strtotime($start_hour);
 $end_hour = strtotime($end_hour);
-for ($halfhour = $start_hour; $halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
-    $start_hours_list .= '<option '.selected($pre_start_hour, date('H:i',$halfhour), false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
-    $end_hours_list .= '<option '.selected($pre_end_hour, date('H:i',$halfhour), false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+// full hour
+for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
+    $start_hours_list .= '<option '.selected($pre_start_hour, date('H:i',$hour), false).' value="'.date('H:i',$hour).'">'.date(homey_time_format(),$hour).'</option>';
+    $end_hours_list .= '<option '.selected($pre_end_hour, date('H:i',$hour), false).' value="'.date('H:i',$hour).'">'.date(homey_time_format(),$hour).'</option>';
 }
+
+// Half Hour
+// for ($halfhour = $start_hour; $halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
+//     $start_hours_list .= '<option '.selected($pre_start_hour, date('H:i',$halfhour), false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+//     $end_hours_list .= '<option '.selected($pre_end_hour, date('H:i',$halfhour), false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+// }
 
 
 ?>
@@ -108,10 +115,8 @@ for ($halfhour = $start_hour; $halfhour <= $end_hour; $halfhour = $halfhour+30*6
                             ?>
 
                             <div class="calendar-navigation custom-actions">
-                                <button class="listing-cal-prev btn btn-action pull-left disabled"><i
-                                            class="homey-icon homey-icon-arrow-left-1" aria-hidden="true"></i></button>
-                                <button class="listing-cal-next btn btn-action pull-right"><i
-                                            class="homey-icon homey-icon-arrow-right-1" aria-hidden="true"></i></button>
+                                <button class="listing-cal-prev btn btn-action pull-left disabled"><i class="homey-icon homey-icon-arrow-left-1" aria-hidden="true"></i></button>
+                                <button class="listing-cal-next btn btn-action pull-right"><i class="homey-icon homey-icon-arrow-right-1" aria-hidden="true"></i></button>
                             </div><!-- calendar-navigation -->
                         </div>
                     </div>
@@ -129,6 +134,11 @@ for ($halfhour = $start_hour; $halfhour <= $end_hour; $halfhour = $halfhour+30*6
                                 <?php echo ''.$end_hours_list; ?>
                             </select>
                         </div>
+                    </div>
+            
+                    <div class="single-total-hours mb-5" style="display: none;">
+                        <span class="total-hours-label"><?php esc_html_e('Total Hours:', 'homey-child');?></span>
+                        <span class="total-hours-value"></span>
                     </div>
 
                     <?php get_template_part('single-listing/booking/guests'); ?>

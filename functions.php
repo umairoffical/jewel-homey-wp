@@ -2,6 +2,7 @@
 // PHP INCLUDE FILES
 include_once( get_stylesheet_directory() . '/framework/functions/child-register-scripts.php');
 include_once( get_stylesheet_directory() . '/framework/functions/child-listing.php');
+include_once( get_stylesheet_directory() . '/framework/functions/listing-booking.php');
 
 // ENQUEUE STYLES
 function homey_child_enqueue_styles() {
@@ -82,3 +83,27 @@ function homey_child_parking_taxonomy() {
     register_taxonomy('parking', 'listing', $args);
 }
 add_action('init', 'homey_child_parking_taxonomy');
+
+
+// accessibility taxonomy for listings
+function homey_child_accessibility_taxonomy() {
+    $labels = array(
+        'name' => 'Accessibility',
+        'singular_name' => 'Accessibility',
+        'search_items' => 'Search Accessibility',
+        'all_items' => 'All Accessibility',
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'listing_accessibility'),
+    );
+
+    register_taxonomy('listing_accessibility', 'listing', $args);
+}
+add_action('init', 'homey_child_accessibility_taxonomy');

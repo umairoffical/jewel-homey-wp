@@ -19,6 +19,8 @@ $children = homey_get_field_meta('children');
 $additional_rules = isset($listing_meta_data['homey_additional_rules'][0]) ? $listing_meta_data['homey_additional_rules'][0] : ''; 
 $cancellation_policy = isset($listing_meta_data['homey_cancellation_policy'][0]) ? $listing_meta_data['homey_cancellation_policy'][0] : ''; 
 
+$overtime_policy = get_post_meta($listing_data->ID, 'homey_overtime_policy', true);
+
 
 $checkin_after_before = homey_option('checkin_after_before');
 $checkin_after_before_array = explode( ',', $checkin_after_before );
@@ -78,6 +80,33 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
                 </div>
             </div>
         <?php } ?>
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-12">
+                <div class="form-group">
+                    <label for="overtime_policy"><?php esc_html_e('Overtime Policy','homey-child'); ?></label>
+                    <?php
+                    // default settings - Kv_front_editor.php
+                    $content = $overtime_policy;
+                    $editor_id = 'overtime_policy';
+                    $settings =   array(
+                        'id' => 'rules', // use wpautop?
+                        'wpautop' => true, // use wpautop?
+                        'media_buttons' => false, // show insert/upload button(s)
+                        'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                        'textarea_rows' => '10', // rows="..."
+                        'tabindex' => '',
+                        'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
+                        'editor_class' => '', // add extra class(es) to the editor textarea
+                        'teeny' => false, // output the minimal editor config used in Press This
+                        'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                        'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                        'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                    );
+                    wp_editor( $content, $editor_id, $settings ); ?>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -146,6 +175,73 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
 
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-12">
+                <div class="form-group">
+                    <label for="additional_rules"><?php esc_html_e('Location Rules','homey-child'); ?></label>
+                    <?php
+                    // default settings - Kv_front_editor.php
+                    $content = $additional_rules;
+                    $editor_id = 'additional_rules';
+                    $settings =   array(
+                        'id' => 'rules', // use wpautop?
+                        'wpautop' => true, // use wpautop?
+                        'media_buttons' => false, // show insert/upload button(s)
+                        'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                        'textarea_rows' => '10', // rows="..."
+                        'tabindex' => '',
+                        'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
+                        'editor_class' => '', // add extra class(es) to the editor textarea
+                        'teeny' => false, // output the minimal editor config used in Press This
+                        'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                        'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                        'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                    );
+                    wp_editor( $content, $editor_id, $settings ); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="listing-form-row mb-10">
+            <div class="house-features-list">
+                <label class="label-title mb-0" style="font-size: 16px; font-weight: 600;"><?php esc_html_e('Accessibility','homey-child'); ?></label>
+                <p class="mb-15" style="margin-top: -5px;"><?php esc_html_e('Select accessibility features available at this property','homey-child');?></p>
+
+                <?php
+                $amenities_terms_id = array();
+                $amenities_terms = get_the_terms( $listing_data->ID, 'listing_accessibility' );
+                if ( $amenities_terms && ! is_wp_error( $amenities_terms ) ) {
+                    foreach( $amenities_terms as $amenity ) {
+                        $amenities_terms_id[] = intval( $amenity->term_id );
+                    }
+                }
+
+                $amenities = get_terms( 'listing_accessibility', array( 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false ) );
+
+                if (!empty($amenities)) {
+                    
+                    foreach ($amenities as $amenity) {
+
+                        if ( in_array( $amenity->term_id, $amenities_terms_id ) ) {
+                            echo '<label class="control control--checkbox">';
+                                echo '<input type="checkbox" name="listing_accessibility[]" id="amenity-' . esc_attr( $amenity->slug ). '" value="' . esc_attr( $amenity->term_id ). '" checked />';
+                                echo '<span class="contro-text">'.esc_attr( substr($amenity->name, 0, 30) . (strlen($amenity->name) > 30 ? '...' : '') ).'</span>';
+                                echo '<span class="control__indicator"></span>';
+                            echo '</label>';
+                        } else {
+                            echo '<label class="control control--checkbox">';
+                                echo '<input type="checkbox" name="listing_accessibility[]" id="amenity-' . esc_attr( $amenity->slug ). '" value="' . esc_attr( $amenity->term_id ). '">';
+                                echo '<span class="contro-text">'.esc_attr( substr($amenity->name, 0, 30) . (strlen($amenity->name) > 30 ? '...' : '') ).'</span>';
+                                echo '<span class="control__indicator"></span>';
+                            echo '</label>';
+                        }
+                    }
+                }
+                ?>
+
             </div>
         </div>
 

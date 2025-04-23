@@ -24,18 +24,6 @@ jQuery(document).ready(function($) {
                             '<input type="text" name="extra_price['+numVal+'][price]" class="form-control" placeholder="Enter Price Per Day">'+
                         '</div>'+
                     '</div>'+
-                    // '<div class="col-sm-4 col-xs-12">'+
-                    // '<div class="form-group">'+
-                    // '<label for="type"> '+Homey_Listing.ex_type+' </label>'+
-
-                    // '<select name="extra_price['+numVal+'][type]" class="type-select-picker selectpicker" data-live-search="false" data-live-search-style="begins">'+
-                    // '<option value="single_fee">'+Homey_Listing.ex_single_fee+'</option>'+
-                    // '<option value="per_night"> '+Homey_Listing.ex_per_night+'</option>'+
-                    // '<option value="per_guest">'+Homey_Listing.ex_per_guest+'</option>'+
-                    // '<option value="per_night_per_guest">'+Homey_Listing.ex_per_night_per_guest+'</option>'+
-                    // '</select>'+
-                    // '</div>'+
-                    // '</div>'+
                 '</div>'+
                 '<div class="row">'+
                     '<div class="col-sm-12 col-xs-12">'+
@@ -79,7 +67,7 @@ jQuery(document).ready(function($) {
                 },
                 success: function(data) {
                     if(data.success){
-                        alert(data.message);
+                        // alert(data.message);
                         $(".listing-rules-row").append(data.rule_html);
                     }
 

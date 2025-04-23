@@ -55,6 +55,33 @@ $checkinout_hours = '';
             <?php } ?>
 
             <div class="row">
+                <div class="col-sm-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="overtime_policy"><?php esc_html_e('Overtime Policy','homey-child'); ?></label>
+                        <?php
+                        // default settings - Kv_front_editor.php
+                        $content = '';
+                        $editor_id = 'overtime_policy';
+                        $settings =   array(
+                            'id' => 'rules', // id rules
+                            'wpautop' => true, // use wpautop?
+                            'media_buttons' => false, // show insert/upload button(s)
+                            'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                            'textarea_rows' => '10', // rows="..."
+                            'tabindex' => '',
+                            'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
+                            'editor_class' => '', // add extra class(es) to the editor textarea
+                            'teeny' => false, // output the minimal editor config used in Press This
+                            'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                            'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                            'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                        );
+                        wp_editor( $content, $editor_id, $settings ); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="start_hour"><?php echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
@@ -177,6 +204,55 @@ $checkinout_hours = '';
 
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="additional_rules"><?php esc_html_e('Location Rules','homey-child'); ?></label>
+                        <?php
+                        // default settings - Kv_front_editor.php
+                        $content = '';
+                        $editor_id = 'additional_rules';
+                        $settings =   array(
+                            'id' => 'rules', // id rules
+                            'wpautop' => true, // use wpautop?
+                            'media_buttons' => false, // show insert/upload button(s)
+                            'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                            'textarea_rows' => '10', // rows="..."
+                            'tabindex' => '',
+                            'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
+                            'editor_class' => '', // add extra class(es) to the editor textarea
+                            'teeny' => false, // output the minimal editor config used in Press This
+                            'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                            'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                            'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                        );
+                        wp_editor( $content, $editor_id, $settings ); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listing-form-row mb-10">
+                <div class="house-features-list">
+                    <label class="label-title mb-0" style="font-size: 16px; font-weight: 600;"><?php esc_html_e('Accessibility','homey-child'); ?></label>
+                    <p class="mb-15" style="margin-top: -5px;"><?php esc_html_e('Select accessibility features available at this property','homey-child');?></p>
+                    <?php
+                    $facilities = get_terms( 'listing_accessibility', array( 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false ) );
+
+                    if (!empty($facilities)) {
+                        $count = 1;
+                        foreach ($facilities as $facility) {
+                            echo '<label class="control control--checkbox">';
+                                echo '<input type="checkbox" name="listing_accessibility[]" id="facility-' . esc_attr( $facility->slug ). '" value="' . esc_attr( $facility->term_id ). '">';
+                                echo '<span class="contro-text">'.esc_attr( substr($facility->name, 0, 30) . (strlen($facility->name) > 30 ? '...' : '') ).'</span>';
+                                echo '<span class="control__indicator"></span>';
+                            echo '</label>';
+                            $count++;
+                        }
+                    }
+                    ?>
                 </div>
             </div>
 
