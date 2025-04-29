@@ -117,18 +117,16 @@ if( $geo_country_limit != 0 ) {
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="locatioon-welcome-meesage mb-10">
-                        <label for="day_of_instructions"><?php esc_html_e('Host Welcome Message','homey-child'); ?></label>
-                        <textarea name="host_welcome_message" id="host_welcome_message" class="form-control" placeholder="<?php esc_html_e('Enter Host Welcome Message','homey-child'); ?>"></textarea>
-                    </div>
                     <div class="locatioon-site-rep">
                         <div class="form-group">
                             <label><?php esc_html_e('Site Rep Name','homey-child'); ?></label>
                             <input type="text" name="site_rep_name" id="site_rep_name" class="form-control" placeholder="<?php esc_html_e('Enter Site Rep Name','homey-child'); ?>">
+                            <small><?php esc_html_e("A Site Contact is required, please list who the contact person will be upon renter’s arrival.",'homey-child');?></small>
                         </div>
                         <div class="form-group">
                             <label for="day_of_instructions"><?php esc_html_e('Day of Instructions','homey-child'); ?></label>
                             <textarea name="day_of_instructions" id="day_of_instructions" class="form-control" placeholder="<?php esc_html_e('Add Days on Instructions','homey-child'); ?>"></textarea>
+                            <small><?php esc_html_e("These are the instructions that will be sent to the renter after successful payment. Please provide detailed information, including how they can access the property, relevant parking details, and a confirmation of the address.",'homey-child');?></small>
                         </div>
                     </div>
                 </div>

@@ -129,8 +129,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="listing_type"> <?php echo esc_attr(homey_option('ad_listing_type')).homey_req('listing_type'); ?> </label>
-                        <select name="listing_type" class="selectpicker" id="listing_type" <?php homey_required('listing_type'); ?> data-live-search="false" data-live-search-style="begins">
-                            <option selected="selected" value=""><?php echo esc_attr(homey_option('ad_listing_type_plac')); ?></option>
+                        <select name="listing_type[]" class="selectpicker" id="listing_type" multiple="multiple" <?php homey_required('listing_type'); ?> data-live-search="false" data-live-search-style="begins">
                             <?php
                             $listing_type = get_terms (
                                 array(
@@ -164,7 +163,7 @@ $openning_hours_list_array = explode( ',', $openning_hours_list );
                 <?php if($hide_fields['guests'] != 1) { ?>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="guests"> <?php echo esc_attr(homey_option('ad_no_of_guests')).homey_req('guests'); ?> </label>
+                        <label for="guests"> <?php esc_html_e('Max Guests', 'homey-child'); ?> <?php echo homey_req('guests'); ?> </label>
                         <input type="number" data-input-title="<?php echo esc_html__(esc_attr(homey_option('ad_no_of_guests')), 'homey'); ?>" name="guests" id="guests" <?php homey_required('guests'); ?> class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_guests_plac')); ?>">
                     </div>
                 </div>

@@ -363,6 +363,10 @@ function homey_get_prices_child($check_in_date, $check_out_date, $start_hour, $e
     $days_count = intval($days_count);
     $breakdown_price = '';
 
+    if($check_in_unix == $check_out_unix){
+        $days_count = 1;
+    }
+
     if (isset($period_price[$check_in_unix]) && isset($period_price[$check_in_unix]['night_price']) && $period_price[$check_in_unix]['night_price'] != 0) {
         $price_per_night = $period_price[$check_in_unix]['night_price'];
 

@@ -90,7 +90,7 @@ if(@$hide_fields['price_postfix'] != 1) {
                 <div class="<?php echo esc_attr($postfix_classes); ?>">
                     <div class="form-group">
                         <label for="price_postfix"><?php echo esc_attr(homey_option('ad_price_postfix_label')); ?></label>
-                        <input type="text" name="price_postfix" class="form-control" id="price_postfix" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
+                        <input type="text" name="price_postfix" class="form-control" id="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
                     </div>
                 </div>
                 <?php } ?>
@@ -190,15 +190,15 @@ if(@$hide_fields['price_postfix'] != 1) {
                         <span><?php esc_html_e('14 - 25 Guests','homey-child');?></span>
                         <span><?php esc_html_e('26 - 35 Guests','homey-child');?></span>
                         <span><?php esc_html_e('36 - 50 Guests','homey-child');?></span>
-                        <span><?php esc_html_e('50+ Guests','homey-child');?></span>
+                        <span><?php esc_html_e('50 - 75 Guests','homey-child');?></span>
                     </div>
                     <div class="guest-price-fields">
-                        <input type="number" name="guest_price[1_to_5][price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
-                        <input type="number" name="guest_price[6_to_13][price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
-                        <input type="number" name="guest_price[14_to_25[price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
-                        <input type="number" name="guest_price[26_to_35][price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
-                        <input type="number" name="guest_price[36_to_50][price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
-                        <input type="number" name="guest_price[50+][price]" class="form-control" placeholder="<?php esc_html_e('Add Amount','homey-child');?>" />
+                        <input type="number" name="guest_price[1_to_5][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[6_to_13][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[14_to_25[price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[26_to_35][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[36_to_50][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[50_to_75][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
                     </div>
                     <div class="guest-price-availablity">
                         <div>

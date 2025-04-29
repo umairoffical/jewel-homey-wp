@@ -177,7 +177,7 @@ for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
                         <button id="instance_reservation" type="button"
                                 class="btn btn-full-width btn-primary"><?php echo esc_html__('Instant Booking', 'homey'); ?></button>
                     <?php } else { ?>
-                        <button id="request_for_reservation" type="button"
+                        <button id="request_for_reservation" type="button" disabled
                                 class="btn btn-full-width btn-primary"><?php echo esc_html__('Request to Book', 'homey'); ?></button>
                         <div class="text-center text-small"><i
                                     class="homey-icon homey-icon-information-circle"></i> <?php echo esc_html__("You won't be charged yet", 'homey'); ?>

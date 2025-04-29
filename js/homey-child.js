@@ -106,49 +106,187 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // $('.btn-step-next').on('click',function(e){
-    //     if($(".form-step-gal1").hasClass('active')){
-    //         if($(".upload-gallery-thumb").length < 1){
-    //             $("#homey_gallery_dragDrop").css("border", "3px dashed red");
-    //             $('.form-step-features').removeClass('active');
-    //             $('.form-step-features').hide();
-    //             $(".form-step-gal1").addClass('active');
-    //             $(".form-step-gal1").show();
-    //             alert('Please upload at least one image');
-    //         }
-    //     }
-    // });
-    
-    // $('.btn-step-next').on('click',function(e){
-    //     var informationTab = $('.form-step-information');
-    //     var pricing = $('.form-step-pricing');
-    //     var media = $('.form-step-media');
-    //     var features = $('.form-step-features');
-    //     var location = $('.form-step-location');
-    //     if(informationTab.hasClass('active')){
-    //         console.log('Information Tab');
-    //         $('.progress-bar-success').css('width', '16.67%');
-    //         $('.cus-progress-bar-text').text('Your listing is 16.67% done.');
-    //     } else if (pricing.hasClass('active')) {
-    //         console.log('Pricing Tab');
-    //         $('.progress-bar-success').css('width', '33.34%');
-    //         $('.cus-progress-bar-text').text('Your listing is 33.34% done.');
-    //     } else if (media.hasClass('active')) {
-    //         console.log('Media Tab');
-    //         $('.progress-bar-success').css('width', '50%');
-    //         $('.cus-progress-bar-text').text('Your listing is 50% done.');
-    //     } else if (features.hasClass('active')) {
-    //         console.log('Features Tab');
-    //         $('.progress-bar-success').css('width', '66.67%');
-    //         $('.cus-progress-bar-text').text('Your listing is 66.67% done.');
-    //     } else if (location.hasClass('active')) {
-    //         console.log('Location Tab');
-    //         $('.progress-bar-success').css('width', '83.34%');
-    //         $('.cus-progress-bar-text').text('Your listing is 83.34% done.');
-    //     } else {
-    //         console.log('Other tab Tab');
-    //         $('.progress-bar-success').css('width', '100%');
-    //         $('.cus-progress-bar-text').text('Your listing is 100% done.');
-    //     }
-    // });
+    $("#listing_size").on('change',function(e){
+        $('#total-size').text($(this).val());
+    });
+
+    $("#listing_size_unit").on('change',function(e){
+        $('#size-prefix').text($(this).val());
+    });
+
+    $(".homey_profile_save_child").on('click', function(e) {
+        e.preventDefault();
+
+        var $this = $(this);
+
+        var gdpr_agreement;
+
+        // if($('#gdpr_agreement').length > 0 ) {
+        //     if(!$('#gdpr_agreement').is(":checked")) {
+        //         jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ gdpr_agree_text +'</div>');
+        //         $('html,body').animate({
+        //             scrollTop: $(".user-dashboard-right").offset().top
+        //         }, 'slow');
+
+        //         return false;
+        //     } else {
+        //         gdpr_agreement = 'checked';
+        //     }
+        // } 
+
+
+        var firstname   = $("#firstname").val(),
+            lastname    = $("#lastname").val(),
+            profile_pic_id  = $("#profile-pic-id").val(),
+            useremail    = $("#useremail").val(),
+            display_name    = $('select[name="display_name"] option:selected').val(),
+            native_language   = $('#native_language').val(),
+            other_language       = $("#other_language").val(),
+            bio       = $("#bio").val(),
+            street_address       = $("#street_address").val(),
+            apt_suit       = $("#apt_suit").val(),
+            city       = $("#city").val(),
+            state       = $("#state").val(),
+            zipcode       = $("#zipcode").val(),
+            neighborhood       = $("#neighborhood").val(),
+            country       = $("#country").val(),
+
+            facebook  = $("#facebook").val(),
+            twitter  = $("#twitter").val(),
+            linkedin  = $("#linkedin").val(),
+            googleplus  = $("#googleplus").val(),
+            instagram  = $("#instagram").val(),
+            pinterest  = $("#pinterest").val(),
+            youtube  = $("#youtube").val(),
+            vimeo  = $("#vimeo").val(),
+            airbnb  = $("#airbnb").val(),
+            trip_advisor  = $("#trip_advisor").val(),
+
+            em_contact_name  = $("#em_contact_name").val(),
+            em_relationship  = $("#em_relationship").val(),
+            em_email  = $("#em_email").val(),
+            em_phone  = $("#em_phone").val(),
+
+            securityprofile = $('#homey_profile_security').val(),
+            user_role    = $('select[name="role"] option:selected').val();
+
+        if( firstname.trim().length <= 0 ){
+            jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+first_name_req_text+'</div>');
+
+            $('html,body').animate({
+                scrollTop: $(".user-dashboard-right").offset().top
+            }, 'slow');
+
+            return false;
+        }
+
+        if( lastname.trim().length <= 0  && 1==2){
+            jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+last_name_req_text+'</div>');
+
+            $('html,body').animate({
+                scrollTop: $(".user-dashboard-right").offset().top
+            }, 'slow');
+
+            return false;
+        }
+
+        if( bio.trim().length <= 0  && 1==2){
+            jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+tell_about_req_text+'</div>');
+
+            $('html,body').animate({
+                scrollTop: $(".user-dashboard-right").offset().top
+            }, 'slow');
+
+            return false;
+        }
+
+        // if( em_relationship.trim().length <= 0 && 1==2){
+        //     jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+mobile_num_req_text+'</div>');
+
+        //     $('html,body').animate({
+        //         scrollTop: $(".user-dashboard-right").offset().top
+        //     }, 'slow');
+
+        //     return false;
+        // }
+
+        // if( em_phone.trim().length <= 0  && 1==2){
+        //     jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+phone_num_req_text+'</div>');
+
+        //     $('html,body').animate({
+        //         scrollTop: $(".user-dashboard-right").offset().top
+        //     }, 'slow');
+
+        //     return false;
+        // }
+
+        $.ajax({
+            type: 'POST',
+            url: homey_child_ajax.ajax_url,
+            dataType: 'json',
+            data: {
+                'action'          : 'homey_save_profile',
+                'firstname'       : firstname,
+                'profile_pic_id'  : profile_pic_id,
+                'lastname'        : lastname,
+                'useremail'       : useremail,
+                'display_name'    : display_name,
+                'role'            : user_role,
+                'native_language' : native_language,
+                'other_language'  : other_language,
+                'bio'             : bio,
+                'street_address'  : street_address,
+                'apt_suit'        : apt_suit,
+                'city'            : city,
+                'state'           : state,
+                'zipcode'         : zipcode,
+                'neighborhood'    : neighborhood,
+                'country'         : country,
+                'facebook'        : facebook,
+                'twitter'         : twitter,
+                'linkedin'        : linkedin,
+                'googleplus'      : googleplus,
+                'instagram'       : instagram,
+                'pinterest'       : pinterest,
+                'youtube'         : youtube,
+                'vimeo'           : vimeo,
+                'airbnb'          : airbnb,
+                'trip_advisor'    : trip_advisor,
+                'em_contact_name' : em_contact_name,
+                'em_relationship' : em_relationship,
+                'em_email'        : em_email,
+                'em_phone'        : em_phone,
+                'gdpr_agreement': gdpr_agreement,
+                'security'        : securityprofile,
+            },
+            beforeSend: function( ) {
+                $this.children('i').remove();
+                $this.prepend('<i class=" '+homey_child_ajax.process_loader_spinner+'"></i>');
+            },
+            success: function(data) {
+                if( data.success ) {
+                    jQuery('#profile_message').empty().append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.msg +'</div>');
+                    $('html,body').animate({
+                        scrollTop: $(".user-dashboard-right").offset().top
+                    }, 'slow');
+
+                    window.location.reload(true);
+                } else {
+                    jQuery('#profile_message').empty().append('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.msg +'</div>');
+                    $('html,body').animate({
+                        scrollTop: $(".user-dashboard-right").offset().top
+                    }, 'slow');
+                }
+            },
+            error: function(errorThrown) {
+
+            },
+            complete: function(){
+                $this.children('i').removeClass(homey_child_ajax.process_loader_spinner);
+                $this.children('i').addClass(homey_child_ajax.success_icon);
+            }
+        });
+
+    });
+
 }); 

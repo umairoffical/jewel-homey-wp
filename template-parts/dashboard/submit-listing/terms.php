@@ -54,32 +54,32 @@ $checkinout_hours = '';
                 </div>
             <?php } ?>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-12 col-sm-12">
                     <div class="form-group">
-                        <label for="overtime_policy"><?php esc_html_e('Overtime Policy','homey-child'); ?></label>
+                        <label for="overtime_policy"><?php //esc_html_e('Overtime Policy','homey-child'); ?></label>
                         <?php
-                        // default settings - Kv_front_editor.php
-                        $content = '';
-                        $editor_id = 'overtime_policy';
-                        $settings =   array(
-                            'id' => 'rules', // id rules
-                            'wpautop' => true, // use wpautop?
-                            'media_buttons' => false, // show insert/upload button(s)
-                            'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
-                            'textarea_rows' => '10', // rows="..."
-                            'tabindex' => '',
-                            'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
-                            'editor_class' => '', // add extra class(es) to the editor textarea
-                            'teeny' => false, // output the minimal editor config used in Press This
-                            'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
-                            'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
-                            'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
-                        );
-                        wp_editor( $content, $editor_id, $settings ); ?>
+                        // // default settings - Kv_front_editor.php
+                        // $content = '';
+                        // $editor_id = 'overtime_policy';
+                        // $settings =   array(
+                        //     'id' => 'rules', // id rules
+                        //     'wpautop' => true, // use wpautop?
+                        //     'media_buttons' => false, // show insert/upload button(s)
+                        //     'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                        //     'textarea_rows' => '10', // rows="..."
+                        //     'tabindex' => '',
+                        //     'editor_css' => '', //  extra styles for both visual and HTML editors buttons,
+                        //     'editor_class' => '', // add extra class(es) to the editor textarea
+                        //     'teeny' => false, // output the minimal editor config used in Press This
+                        //     'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                        //     'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                        //     'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                        // );
+                        // wp_editor( $content, $editor_id, $settings ); ?>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="col-sm-6 col-xs-12">

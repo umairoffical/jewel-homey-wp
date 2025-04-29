@@ -115,7 +115,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
             <div class="<?php echo esc_attr($postfix_classes); ?>">
                 <div class="form-group">
                     <label for="price_postfix"><?php echo esc_attr(homey_option('ad_price_postfix_label')); ?></label>
-                    <input type="text" name="price_postfix" value="<?php echo esc_attr($price_postfix); ?>" class="form-control" id="price_postfix" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
+                    <input type="text" name="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" class="form-control" id="price_postfix" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
                 </div>
             </div>
             <?php } ?>
@@ -227,7 +227,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
                 '14_to_25' => esc_html__('14 - 25 Guests', 'homey-child'),
                 '26_to_35' => esc_html__('26 - 35 Guests', 'homey-child'),
                 '36_to_50' => esc_html__('36 - 50 Guests', 'homey-child'),
-                '50+' => esc_html__('50+ Guests', 'homey-child'),
+                '50_to_75 Guests' => esc_html__('50 - 75 Guests', 'homey-child'),
             ];
             ?>
 
@@ -241,7 +241,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
                     <?php foreach ($guest_ranges as $key => $label) : ?>
                         <input type="number" name="guest_price[<?php echo $key; ?>][price]" 
                                class="form-control" 
-                               placeholder="<?php esc_html_e('Add Amount', 'homey-child'); ?>" 
+                               placeholder="<?php esc_html_e('Per Hour', 'homey-child'); ?>" 
                                value="<?php echo isset($guest_prices[$key]['price']) ? esc_attr($guest_prices[$key]['price']) : ''; ?>" />
                     <?php endforeach; ?>
                 </div>

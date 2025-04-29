@@ -168,7 +168,7 @@ function listing_submission_filter($new_listing) {
             $new_listing['ID'] = intval($_POST['listing_id']);
         }
 
-        if(homey_is_listing_owner($new_listing['ID'], $current_user->ID) < 1){
+        if(homey_is_listing_owner_child($new_listing['ID'], $current_user->ID) < 1){
             echo json_encode(array('success' => false, 'listing_id' => $listing_id, 'msg' => esc_html__('Something bad is happend, please try again.', 'homey')));
             wp_die();
         }
@@ -256,9 +256,9 @@ function listing_submission_filter($new_listing) {
             update_post_meta($listing_id, 'homey_guest_price', $_POST['guest_price']);
         }
 
-        if(isset($_POST['host_welcome_message'])){
-            update_post_meta($listing_id, 'homey_welcome_message', sanitize_text_field($_POST['host_welcome_message']));
-        }
+        // if(isset($_POST['host_welcome_message'])){
+        //     update_post_meta($listing_id, 'homey_welcome_message', sanitize_text_field($_POST['host_welcome_message']));
+        // }
 
         if(isset($_POST['site_rep_name'])){
             update_post_meta($listing_id, 'homey_rep_name', sanitize_text_field($_POST['site_rep_name']));
@@ -702,16 +702,25 @@ function listing_submission_filter($new_listing) {
         }
 
         // Listing Type
-        if (isset($_POST['listing_type']) && ($_POST['listing_type'] != '-1')) {
-            wp_set_object_terms($listing_id, intval($_POST['listing_type']), 'listing_type');
-        }else {
-            // Get the existing terms for the listing
-            $existing_terms = wp_get_object_terms($listing_id, 'listing_type', array('fields' => 'ids'));
+        if (isset($_POST['listing_type'])) {
+            $listing_type_array = array();
+            foreach ($_POST['listing_type'] as $type_id) {
+                if($type_id != '-1') {
+                    $listing_type_array[] = intval($type_id);
+                }
+            }
 
-            // Check if there are any existing terms
+            // First remove any existing terms
+            $existing_terms = wp_get_object_terms($listing_id, 'listing_type', array('fields' => 'ids'));
             if (!empty($existing_terms)) {
-                // Unset the listing_type for the listing
                 wp_remove_object_terms($listing_id, $existing_terms, 'listing_type');
+            }
+
+            // Add new terms one by one
+            if(!empty($listing_type_array)) {
+                foreach($listing_type_array as $type_id) {
+                    wp_set_object_terms($listing_id, $type_id, 'listing_type', true);
+                }
             }
         }
 
@@ -871,3 +880,17 @@ function listing_submission_filter($new_listing) {
 
 } //listing_submission_filter
 add_filter('listing_submission_filter', 'listing_submission_filter');
+
+function homey_is_listing_owner_child($listing_id=0, $current_user_id=0) {
+    if($current_user_id == 0){
+        $current_user = wp_get_current_user();
+        $current_user_id = $current_user->ID;
+    }
+
+    $listing_owner_id = get_post_field('post_author', $listing_id);
+    if(homey_is_admin() || $listing_owner_id == $current_user_id){
+        return 1;
+    }
+
+    return 0;
+}

@@ -133,9 +133,23 @@ $timeperiod_availability = get_post_meta($lisitng_id,'homey_timeperiod_availbili
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="listing_type"> <?php echo esc_attr(homey_option('ad_listing_type')).homey_req('listing_type'); ?> </label>
-                    <select name="listing_type" class="selectpicker" <?php homey_required('listing_type'); ?>  id="listing_type" data-live-search="false" data-live-search-style="begins">
-                        <?php homey_get_taxonomies_for_edit_listing( $listing_data->ID, 'listing_type' ); ?>
+                    <select name="listing_type[]" class="selectpicker" <?php homey_required('listing_type'); ?> multiple="multiple"  id="listing_type" data-live-search="false" data-live-search-style="begins">
+                        <?php 
+                        $listing_types = get_terms('listing_type');
+                        $selected_types = get_the_terms($listing_data->ID, 'listing_type');
+                        $selected_type_ids = array();
+                        
+                        if(!empty($selected_types)) {
+                            foreach($selected_types as $type) {
+                                $selected_type_ids[] = $type->term_id;
+                            }
+                        }
 
+                        foreach($listing_types as $type) {
+                            $selected = in_array($type->term_id, $selected_type_ids) ? 'selected="selected"' : '';
+                            echo '<option value="' . $type->term_id . '" ' . $selected . '>' . $type->name . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -153,7 +167,7 @@ $timeperiod_availability = get_post_meta($lisitng_id,'homey_timeperiod_availbili
             <?php if($hide_fields['guests'] != 1) { ?>
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label for="guests"> <?php echo esc_attr(homey_option('ad_no_of_guests')).homey_req('guests'); ?> </label>
+                    <label for="guests"> <?php esc_html_e('Max Guests', 'homey'); ?> <?php echo homey_req('guests'); ?> </label>
                     <input type="number" name="guests" id="guests" <?php homey_required('guests'); ?> value="<?php homey_field_meta('guests'); ?>" class="form-control" placeholder="<?php echo esc_attr(homey_option('ad_no_of_guests_plac')); ?>">
                 </div>
             </div>

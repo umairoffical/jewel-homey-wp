@@ -20,7 +20,8 @@ if($homey_booking_type == 'per_day_date') {
 ?>
 <div class="homey-extra-prices">
 <hr class="row-separator">
-<h3 class="sub-title"><?php echo esc_html__('Add Ons', 'homey'); ?></h3>
+<h3 class="sub-title mb-0"><?php echo esc_html__('Add Ons', 'homey'); ?></h3>
+<p><?php esc_html_e(' Do you have any add-ons available, such as lights, cameras, extra tables, or other equipment? List them here! If a renter selects any add-ons, they will be charged a daily rental fee.', 'homey-child'); ?></p>
 
 <div id="more_extra_services_main" class="custom-extra-prices">
     <div class="more_extra_services_wrap">

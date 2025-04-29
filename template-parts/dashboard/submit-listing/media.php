@@ -19,7 +19,6 @@ if ($layout_order) {
         <div class="block-title">
             <div class="block-left">
                 <h2 class="title"><?php echo esc_html(homey_option('ad_section_media')); ?></h2>
-                <p><?php echo esc_html_e('Add five photos, as well as a video, if available, showing off the space. Contact Location Jewel if you don’t have a video tour, we may be able to help!','homey-child'); ?></p>
             </div><!-- block-left -->
         </div>
         <div class="block-body">

@@ -21,7 +21,9 @@ function homey_child_enqueue_scripts() {
     
     wp_localize_script('homey-child-js', 'homey_child_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('homey_child_nonce')
+        'nonce' => wp_create_nonce('homey_child_nonce'),
+        'process_loader_spinner' => 'homey-icon homey-icon-loading-half fa-spinner',
+        'success_icon' => 'homey-icon homey-icon-check-circle-1',
     ));
 }
 add_action('wp_enqueue_scripts', 'homey_child_enqueue_scripts');
