@@ -120,6 +120,7 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
                             }
                             ?>
                     </select>
+                    <span class="help-block"><?php echo esc_html__('List when your property is available for renting.', 'homey-child'); ?></span>
                 </div>
             </div>
             
@@ -134,6 +135,7 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
                         }
                         ?>
                     </select>
+                    <span class="help-block"><?php echo esc_html__('List the time your property is closed for renting.', 'homey-child'); ?></span>
                 </div>
             </div>
             

@@ -62,12 +62,12 @@ if(@$hide_fields['price_postfix'] != 1) {
 
                 <?php if($hide_fields['night_price'] != 1) { ?>
                     <?php if($homey_booking_type == 'per_day_date') { ?>
-                        <div class="col-sm-6 col-xs-12">
+                        <!-- <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <label for="night-price"><?php echo esc_html__('Price Per Hour', 'homey').homey_req('night_price'); ?></label>
-                                <input type="text" name="day_date_price" class="form-control" <?php homey_required('night_price'); ?> id="day_date_price" placeholder="<?php echo esc_html__('Enter price for 1 hour', 'homey'); ?>">
-                            </div>
-                        </div>
+                                <label for="night-price"><?php //echo esc_html__('Price Per Hour', 'homey').homey_req('night_price'); ?></label> -->
+                                <input type="hidden" name="day_date_price" class="form-control" <?php homey_required('night_price'); ?> id="day_date_price" placeholder="<?php echo esc_html__('Enter price for 1 hour', 'homey'); ?>">
+                            <!-- </div>
+                        </div> -->
                     <?php } elseif($homey_booking_type == 'per_hour') { ?>
                         <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
@@ -87,12 +87,12 @@ if(@$hide_fields['price_postfix'] != 1) {
 
                 
                 <?php if(@$hide_fields['price_postfix'] != 1) { ?>
-                <div class="<?php echo esc_attr($postfix_classes); ?>">
+                <!-- <div class="<?php //echo esc_attr($postfix_classes); ?>">
                     <div class="form-group">
-                        <label for="price_postfix"><?php echo esc_attr(homey_option('ad_price_postfix_label')); ?></label>
-                        <input type="text" name="price_postfix" class="form-control" id="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
-                    </div>
-                </div>
+                        <label for="price_postfix"><?php //echo esc_attr(homey_option('ad_price_postfix_label')); ?></label> -->
+                        <input type="hidden" name="price_postfix" class="form-control" id="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
+                    <!-- </div>
+                </div> -->
                 <?php } ?>
 
             </div>
@@ -177,7 +177,7 @@ if(@$hide_fields['price_postfix'] != 1) {
             <?php } ?>
 
             <!-- GUESTS PRICING -->
-            <hr class="row-separator">
+            <!-- <hr class="row-separator"> -->
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <h3 class="sub-title"><?php esc_html_e('Lets Set Your Pricing Requirments','homey-child'); ?></h3>
@@ -193,12 +193,12 @@ if(@$hide_fields['price_postfix'] != 1) {
                         <span><?php esc_html_e('50 - 75 Guests','homey-child');?></span>
                     </div>
                     <div class="guest-price-fields">
-                        <input type="number" name="guest_price[1_to_5][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
-                        <input type="number" name="guest_price[6_to_13][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
-                        <input type="number" name="guest_price[14_to_25[price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
-                        <input type="number" name="guest_price[26_to_35][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
-                        <input type="number" name="guest_price[36_to_50][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
-                        <input type="number" name="guest_price[50_to_75][price]" class="form-control" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[1_to_5][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[6_to_13][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[14_to_25][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[26_to_35][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[36_to_50][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
+                        <input type="number" name="guest_price[50_to_75][price]" class="form-control listing-price-per-hour" placeholder="<?php esc_html_e('Per Hour','homey-child');?>" />
                     </div>
                     <div class="guest-price-availablity">
                         <div>

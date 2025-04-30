@@ -108,10 +108,8 @@ jQuery(document).ready(function($) {
 
     $("#listing_size").on('change',function(e){
         $('#total-size').text($(this).val());
-    });
-
-    $("#listing_size_unit").on('change',function(e){
-        $('#size-prefix').text($(this).val());
+        $('#size-prefix').text('Sqft');
+        $('.sidebar-item-size').show();
     });
 
     $(".homey_profile_save_child").on('click', function(e) {
@@ -289,4 +287,43 @@ jQuery(document).ready(function($) {
 
     });
 
+    // Allow only numbers in number input fields
+    $('input[type="number"]').on('keypress', function(e) {
+        // Allow only numbers and prevent other characters
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    }); 
+
+    // Prevent paste of non-numeric values
+    $('input[type="number"]').on('paste', function(e) {
+        var pastedData = e.originalEvent.clipboardData.getData('text');
+        if (!/^\d*$/.test(pastedData)) {
+            e.preventDefault();
+        }
+    });
+    
+    // multiple single prices
+    $('.listing-price-per-hour').on('change', function() {
+        var price = $(this).val();
+        if (price < 0) {
+            $(this).val(0);
+        }else{
+            var guestRange = $(this).attr('name').match(/\[(.*?)\]/)[1];
+            $('#'+guestRange+'_guest').prop('checked', true);
+        }
+        
+        // Get all price values and find minimum
+        var minPrice = null;
+        $('.listing-price-per-hour').each(function() {
+            var val = parseInt($(this).val()) || 0;
+            if(val > 0) {
+                if(minPrice === null || val < minPrice) {
+                    minPrice = val;
+                }
+            }
+        });
+
+        $('#day_date_price').val(minPrice);
+    });
 }); 

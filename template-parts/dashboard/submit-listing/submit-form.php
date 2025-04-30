@@ -15,11 +15,11 @@ if( isset($_GET['mode']) && $_GET['mode'] != '' ) {
         <div class="progress mb-5">
             <div class="progress-bar progress-bar-success" role="progressbar" 
                     aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" 
-                    style="width: 16%;">
+                    style="width: 0%;">
             </div>
         </div>
         <div class="progress-text cus-progress-bar-text">
-            Your listing is 16% done.
+            Your listing is 0% done.
         </div>
     </div>
 </div>

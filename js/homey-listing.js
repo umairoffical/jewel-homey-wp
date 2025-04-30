@@ -651,22 +651,22 @@ jQuery(document).ready( function($) {
             var features = $('.form-step-features');
             var location = $('.form-step-location');
             if(informationTab.hasClass('active')){
-                $('.progress-bar-success').css('width', '16.67%');
-                $('.cus-progress-bar-text').text('Your listing is 16.67% done.');
+                $('.progress-bar-success').css('width', '0%'); // 16.67
+                $('.cus-progress-bar-text').text('Your listing is 0% done.');
             } else if (pricing.hasClass('active')) {
-                $('.progress-bar-success').css('width', '33.34%');
-                $('.cus-progress-bar-text').text('Your listing is 33.34% done.');
+                $('.progress-bar-success').css('width', '16.67%'); //33.34
+                $('.cus-progress-bar-text').text('Your listing is 16.67% done.');
             } else if (media.hasClass('active')) {
-                $('.progress-bar-success').css('width', '50%');
-                $('.cus-progress-bar-text').text('Your listing is 50% done.');
+                $('.progress-bar-success').css('width', '33.34%'); //50
+                $('.cus-progress-bar-text').text('Your listing is 33.34% done.');
             } else if (features.hasClass('active')) {
-                $('.progress-bar-success').css('width', '66.67%');
-                $('.cus-progress-bar-text').text('Your listing is 66.67% done.');
+                $('.progress-bar-success').css('width', '50%');  //66.67
+                $('.cus-progress-bar-text').text('Your listing is 50% done.');
             } else if (location.hasClass('active')) {
-                $('.progress-bar-success').css('width', '83.34%');
-                $('.cus-progress-bar-text').text('Your listing is 83.34% done.');
+                $('.progress-bar-success').css('width', '66.67%'); //83.34
+                $('.cus-progress-bar-text').text('Your listing is 66.67% done.');
             } else {
-                $('.progress-bar-success').css('width', '100%');
+                $('.progress-bar-success').css('width', '83.34%'); //100
                 $('.cus-progress-bar-text').text('Your listing is 100% done.');
             }
         }
@@ -871,7 +871,11 @@ jQuery(document).ready( function($) {
         function amenities_selector(ele, view_ele, is_text) {
             $(ele).on('change', function() {
                 if(is_text == 'yes') {
-                    var selected = $(this).find("option:selected").text();
+                    var selected = [];
+                    $(this).find("option:selected").each(function() {
+                        selected.push($(this).text());
+                    });
+                    selected = selected.length > 0 ? 'Types: ' + selected.join(', ') : '';
                 } else {
                     var selected = $(this).find("option:selected").val();
                 }

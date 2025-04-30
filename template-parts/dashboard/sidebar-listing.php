@@ -30,6 +30,8 @@ if(!empty($guests_icon)) {
     $guests_icon = '<i class="'.esc_attr($guests_icon).'"></i>';
 }
 
+$show_size_fields = 'none';
+
 $total_guests = 0;
 $listing_id = $title = $address = $image = $listing_address = $night_price = $listing_bedrooms = $baths = $guests = $permalink = '';
 if((isset($_GET['edit_listing']) && $_GET['edit_listing'] != '') || (isset($_GET['upgrade_id']) && $_GET['upgrade_id'] != '') || (isset($_GET['listing_id']) && $_GET['listing_id'] != '')) {
@@ -43,6 +45,12 @@ if((isset($_GET['edit_listing']) && $_GET['edit_listing'] != '') || (isset($_GET
     } elseif(isset($_GET['listing_id']) && $_GET['listing_id'] != '') {
         $listing_id = $_GET['listing_id'];
 
+    }
+
+    if(!empty($listing_id)) {
+        $show_size_fields = 'inline-block';
+    } else {
+        $show_size_fields = 'none';
     }
 
     $title = get_the_title($listing_id);
@@ -151,8 +159,8 @@ if ( isset($_GET['mode']) && $_GET['mode'] != '' ) {
             <ul class="item-amenities">
 
                 <?php if(empty($size) || $size != 0) { ?>
-                <li>
-                    <i class="fa fa-area-chart"></i>
+                <li class="sidebar-item-size" style="display: <?php echo $show_size_fields; ?>;">
+                    <i class="fa fa-arrows-h"></i>
                     <span id="total-size"><?php echo esc_html($size); ?></span> 
                     <span id="size-prefix"><?php echo $size_prefix;?></span>
                 </li>
@@ -192,9 +200,17 @@ if ( isset($_GET['mode']) && $_GET['mode'] != '' ) {
                             foreach($listing_types as $type) {
                                 $type_names[] = $type->name;
                             }
-                            echo implode(', ', $type_names);
+                            if(!empty($listing_id)) {
+                                echo 'Type: ' . implode(', ', $type_names);
+                            } else {
+                                echo implode(', ', $type_names);
+                            }
                         } else {
-                            echo homey_option('sn_type_label');
+                            if(!empty($listing_id)) {
+                                echo 'Type: ' . homey_option('sn_type_label');
+                            } else {
+                                echo homey_option('sn_type_label');
+                            }
                         }
                         ?> 
                     </span>

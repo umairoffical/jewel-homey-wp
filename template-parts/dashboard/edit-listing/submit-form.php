@@ -70,7 +70,7 @@ if ( ! empty( $listing_data ) && ( $listing_data->post_type == 'listing' ) ) {
                 <div class="block-head table-block">
                     <div class="block-left">
                         <h2 class="title"><?php echo get_the_title($edit_listing_id); ?></h2>
-                        <?php get_template_part('single-listing/item-address', null, array('edit_listing_id' => $edit_listing_id, 'address_tag_class' => 'item-address', 'prefix_address' => '<i class="homey-icon homey-icon-style-two-pin-marker v-middle"></i>', 'postfix_address' => '')); ?>
+                        <?php //get_template_part('single-listing/item-address', null, array('edit_listing_id' => $edit_listing_id, 'address_tag_class' => 'item-address', 'prefix_address' => '<i class="homey-icon homey-icon-style-two-pin-marker v-middle"></i>', 'postfix_address' => '')); ?>
                         <?php if(!empty($address)) { ?>
                             <address class="title-address"><i class="homey-icon homey-icon-style-two-pin-marker v-middle"></i>
                                 <?php echo esc_attr($address); ?>

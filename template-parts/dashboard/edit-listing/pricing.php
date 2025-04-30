@@ -88,12 +88,12 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
 
             <?php if($hide_fields['night_price'] != 1) { ?>
                <?php if($homey_booking_type == 'per_day_date') { ?>
-                        <div class="col-sm-6 col-xs-12">
+                        <!-- <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <label for="night-price"><?php echo esc_html__('Price Per Hour', 'homey').homey_req('night_price'); ?></label>
-                                <input type="text" name="day_date_price" value="<?php echo esc_attr($day_date_price); ?>" class="form-control" <?php homey_required('night_price'); ?> id="day_date_price" placeholder="<?php echo esc_html__('Enter price for 1 day', 'homey'); ?>">
-                            </div>
-                        </div>
+                                <label for="night-price"><?php //echo esc_html__('Price Per Hour', 'homey').homey_req('night_price'); ?></label> -->
+                                <input type="hidden" name="day_date_price" value="<?php echo esc_attr($day_date_price); ?>" class="form-control" <?php homey_required('night_price'); ?> id="day_date_price" placeholder="<?php echo esc_html__('Enter price for 1 day', 'homey'); ?>">
+                            <!-- </div>
+                        </div> -->
                     <?php } elseif($homey_booking_type == 'per_hour') { ?>
                     <div class="col-sm-6 col-xs-12">
                         <div class="form-group">
@@ -112,12 +112,12 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
             <?php } ?>
 
             <?php if($hide_fields['price_postfix'] != 1) { ?>
-            <div class="<?php echo esc_attr($postfix_classes); ?>">
+            <!-- <div class="<?php echo esc_attr($postfix_classes); ?>">
                 <div class="form-group">
-                    <label for="price_postfix"><?php echo esc_attr(homey_option('ad_price_postfix_label')); ?></label>
-                    <input type="text" name="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" class="form-control" id="price_postfix" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
-                </div>
-            </div>
+                    <label for="price_postfix"><?php //echo esc_attr(homey_option('ad_price_postfix_label')); ?></label> -->
+                    <input type="hidden" name="price_postfix" disabled value="<?php esc_html_e('Per Hour', 'homey-child'); ?>" class="form-control" id="price_postfix" placeholder="<?php echo esc_attr(homey_option('ad_price_postfix_plac')); ?>">
+                <!-- </div>
+            </div> -->
             <?php } ?>
 
         </div>
@@ -211,7 +211,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
         <?php } ?>
 
         <!-- GUESTS PRICING -->
-        <hr class="row-separator">
+        <!-- <hr class="row-separator"> -->
         <div class="row">
             <div class="col-sm-12 col-xs-12">
                 <h3 class="sub-title"><?php esc_html_e('Lets Set Your Pricing Requirments','homey-child'); ?></h3>
@@ -240,7 +240,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
                 <div class="guest-price-fields">
                     <?php foreach ($guest_ranges as $key => $label) : ?>
                         <input type="number" name="guest_price[<?php echo $key; ?>][price]" 
-                               class="form-control" 
+                               class="form-control listing-price-per-hour"
                                placeholder="<?php esc_html_e('Per Hour', 'homey-child'); ?>" 
                                value="<?php echo isset($guest_prices[$key]['price']) ? esc_attr($guest_prices[$key]['price']) : ''; ?>" />
                     <?php endforeach; ?>
