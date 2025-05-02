@@ -81,26 +81,26 @@ $checkinout_hours = '';
                 </div>
             </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="start_hour"><?php echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
-                        <select name="start_hour" class="selectpicker" <?php homey_required('start_hour'); ?> id="start_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
-                                <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
-                                <?php echo ''.$start_and_end_hours; ?>
+                        <label for="start_hour"><?php //echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
+                        <select name="start_hour" class="selectpicker" <?php //homey_required('start_hour'); ?> id="start_hour" data-live-search="false" title="<?php //echo esc_attr(homey_option('ad_text_select')); ?>">
+                                <option value=""><?php //echo esc_attr(homey_option('ad_text_select')); ?></option>
+                                <?php //echo ''.$start_and_end_hours; ?>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="end_hour"><?php echo esc_html__('End Business Hour', 'homey').homey_req('end_hour'); ?></label>
-                        <select name="end_hour" class="selectpicker" <?php homey_required('end_hour'); ?> id="end_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
-                            <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
-                            <?php echo ''.$start_and_end_hours; ?>
+                        <label for="end_hour"><?php //echo esc_html__('End Business Hour', 'homey').homey_req('end_hour'); ?></label>
+                        <select name="end_hour" class="selectpicker" <?php //homey_required('end_hour'); ?> id="end_hour" data-live-search="false" title="<?php //echo esc_attr(homey_option('ad_text_select')); ?>">
+                            <option value=""><?php //echo esc_attr(homey_option('ad_text_select')); ?></option>
+                            <?php //echo ''.$start_and_end_hours; ?>
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <?php if($homey_booking_type == 'per_hour') { ?>
                 <hr class="row-separator">
@@ -256,23 +256,23 @@ $checkinout_hours = '';
                 </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-xs-12">
-                    <label class="label-title" style="margin-bottom: 5px;"><?php esc_html_e('Additoinal Rules!','homey-child');?></label>
-                    <small>(<?php esc_html_e('Add Mulitple additional rules for your listing.','homey-child');?>)</small>
+                    <label class="label-title" style="margin-bottom: 5px;"><?php //esc_html_e('Additoinal Rules!','homey-child');?></label>
+                    <small>(<?php //esc_html_e('Add Mulitple additional rules for your listing.','homey-child');?>)</small>
                 </div>
                 <div class="col-sm-12 mt-10">
                     <div class="row">
                         <div class="col-sm-9 col-xs-12">
-                            <input type="text" name="listing_rules_add_rule" id="listing_rules_add_rule" class="form-control" placeholder="<?php esc_html_e('Enter the Rules!','homey-child'); ?>">
+                            <input type="text" name="listing_rules_add_rule" id="listing_rules_add_rule" class="form-control" placeholder="<?php //esc_html_e('Enter the Rules!','homey-child'); ?>">
                         </div>
                         <div class="col-sm-3 col-xs-12">
-                            <a href="#" class="btn btn-primary btn-single-rule" style="width:100%;"><i class="homey-icon homey-icon-add"></i> <?php esc_html_e('Add Rule','homey-child'); ?></a>
+                            <a href="#" class="btn btn-primary btn-single-rule" style="width:100%;"><i class="homey-icon homey-icon-add"></i> <?php //esc_html_e('Add Rule','homey-child'); ?></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-xs-12 listing-rules-row mt-10"></div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

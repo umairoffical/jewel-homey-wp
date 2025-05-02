@@ -222,8 +222,8 @@ if(@$hide_fields['price_postfix'] != 1) {
                             <label for="36_to_50_guest"><?php esc_html_e('Is Available?','homey-child');?></label>
                         </div>
                         <div>
-                            <input type="checkbox" id="50+_guest" name="guest_price[50+][available]" value="yes" />
-                            <label for="50+_guest"><?php esc_html_e('Is Available?','homey-child');?></label>
+                            <input type="checkbox" id="50_to_75_guest" name="guest_price[50+][available]" value="yes" />
+                            <label for="50_to_75_guest"><?php esc_html_e('Is Available?','homey-child');?></label>
                         </div>
                     </div>
                 </div>

@@ -108,38 +108,38 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
             </div>
         </div> -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label for="start_hour"><?php echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
-                    <select name="start_hour" class="selectpicker" <?php homey_required('start_hour'); ?> id="start_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
-                            <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
+                    <label for="start_hour"><?php //echo esc_html__('Start Business Hour', 'homey').homey_req('start_hour'); ?></label>
+                    <select name="start_hour" class="selectpicker" <?php //homey_required('start_hour'); ?> id="start_hour" data-live-search="false" title="<?php //echo esc_attr(homey_option('ad_text_select')); ?>">
+                            <option value=""><?php //echo esc_attr(homey_option('ad_text_select')); ?></option>
                             <?php 
-                            for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
-                                echo '<option '.selected(date('H:i',$halfhour), $get_start_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
-                            }
+                            // for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
+                            //     echo '<option '.selected(date('H:i',$halfhour), $get_start_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+                            // }
                             ?>
                     </select>
-                    <span class="help-block"><?php echo esc_html__('List when your property is available for renting.', 'homey-child'); ?></span>
+                    <span class="help-block"><?php //echo esc_html__('List when your property is available for renting.', 'homey-child'); ?></span>
                 </div>
             </div>
             
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label for="end_hour"><?php echo esc_html__('End Business Hour', 'homey').homey_req('end_hour'); ?></label>
-                    <select name="end_hour" class="selectpicker" <?php homey_required('end_hour'); ?> id="end_hour" data-live-search="false" title="<?php echo esc_attr(homey_option('ad_text_select')); ?>">
-                        <option value=""><?php echo esc_attr(homey_option('ad_text_select')); ?></option>
+                    <label for="end_hour"><?php //echo esc_html__('End Business Hour', 'homey').homey_req('end_hour'); ?></label>
+                    <select name="end_hour" class="selectpicker" <?php //homey_required('end_hour'); ?> id="end_hour" data-live-search="false" title="<?php //echo esc_attr(homey_option('ad_text_select')); ?>">
+                        <option value=""><?php //echo esc_attr(homey_option('ad_text_select')); ?></option>
                         <?php 
-                        for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
-                            echo '<option '.selected(date('H:i',$halfhour), $get_end_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
-                        }
+                        // for ($halfhour = $start_hour;$halfhour <= $end_hour; $halfhour = $halfhour+30*60) {
+                        //     echo '<option '.selected(date('H:i',$halfhour), $get_end_hour, false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
+                        // }
                         ?>
                     </select>
-                    <span class="help-block"><?php echo esc_html__('List the time your property is closed for renting.', 'homey-child'); ?></span>
+                    <span class="help-block"><?php //echo esc_html__('List the time your property is closed for renting.', 'homey-child'); ?></span>
                 </div>
             </div>
             
-        </div>
+        </div> -->
 
         <div class="row mb-20">
             <div class="col-sm-6 col-xs-12">
@@ -247,37 +247,37 @@ if(isset($_GET['tab']) && $_GET['tab'] == 'rules') {
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xs-12">
-                <label class="label-title" style="margin-bottom: 5px;"><?php esc_html_e('Additoinal Rules!','homey-child');?></label>
-                <small>(<?php esc_html_e('Add Mulitple additional rules for your listing.','homey-child');?>)</small>
+                <label class="label-title" style="margin-bottom: 5px;"><?php //esc_html_e('Additoinal Rules!','homey-child');?></label>
+                <small>(<?php //esc_html_e('Add Mulitple additional rules for your listing.','homey-child');?>)</small>
             </div>
             <div class="col-sm-12 mt-10">
                 <div class="row">
                     <div class="col-sm-9 col-xs-12">
-                        <input type="text" name="listing_rules_add_rule" id="listing_rules_add_rule" class="form-control" placeholder="<?php esc_html_e('Enter the Rules!','homey-child'); ?>">
+                        <input type="text" name="listing_rules_add_rule" id="listing_rules_add_rule" class="form-control" placeholder="<?php //esc_html_e('Enter the Rules!','homey-child'); ?>">
                     </div>
                     <div class="col-sm-3 col-xs-12">
-                        <a href="#" class="btn btn-primary btn-single-rule" style="width:100%;"><i class="homey-icon homey-icon-add"></i> <?php esc_html_e('Add Rule','homey-child'); ?></a>
+                        <a href="#" class="btn btn-primary btn-single-rule" style="width:100%;"><i class="homey-icon homey-icon-add"></i> <?php //esc_html_e('Add Rule','homey-child'); ?></a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-xs-12 listing-rules-row mt-10">
                 <?php 
-                if(!empty($homey_rules)):
-                    foreach($homey_rules as $id => $rule):
-                        $args = array(
-                            'id' => $id,
-                            'rulesText' => '',
-                            'data' => $rule
-                        );
+                // if(!empty($homey_rules)):
+                //     foreach($homey_rules as $id => $rule):
+                //         $args = array(
+                //             'id' => $id,
+                //             'rulesText' => '',
+                //             'data' => $rule
+                //         );
 
-                        get_template_part('template-parts/dashboard/submit-listing/single-rule', null, $args);
-                    endforeach; 
-                endif;
+                //         get_template_part('template-parts/dashboard/submit-listing/single-rule', null, $args);
+                //     endforeach; 
+                // endif;
                 ?>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

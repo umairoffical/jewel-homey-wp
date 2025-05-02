@@ -1461,6 +1461,110 @@ jQuery(document).ready( function($) {
         /*--------------------------------------------------------------------------
          *  Uplaod listing gallery
          * -------------------------------------------------------------------------*/
+        // var listing_gallery_images = function() {
+
+        //     $(document).keypress(function(ev) {
+        //         if($("#listing_title").length > 0){
+        //             if ((ev.which && ev.which === 13) ||
+        //                 (ev.keyCode && ev.keyCode === 13)) {
+        //                 ev.preventDefault();
+        //                 return false;
+        //             }
+        //         }
+        //     });
+
+        //     $( "#homey_gallery_container" ).sortable({
+        //         placeholder: "sortable-placeholder"
+        //     });
+
+        //     var plup_uploader = new plupload.Uploader({
+        //         browse_button: 'select_gallery_images',
+        //         file_data_name: 'listing_upload_file',
+        //         container: 'homey_gallery_dragDrop',
+        //         sortable:  true,
+        //         dragdrop: true,
+        //         drop_element: 'homey_gallery_dragDrop',
+        //         url: ajaxurl + "?action=homey_listing_gallery_upload&verify_nonce=" + verify_nonce,
+        //         filters: {
+        //             mime_types : [
+        //                 { title : verify_file_type, extensions : "jpg,jpeg,gif,png" }
+        //             ],
+        //             max_file_size: '30m',//image_max_file_size,
+        //             prevent_duplicates: false
+        //         }
+        //     });
+        //     plup_uploader.init();
+
+        //     plup_uploader.bind('FilesAdded', function(up, files) {
+        //         var homey_thumbs = "";
+        //         var files_added_count = files.length;
+        //         var minfiles = '5';
+        //         var existing_files = $('.upload-media-gallery').find('div.listing-thumb').length;
+        //         var total_files = files_added_count + existing_files;
+                
+        //         if(total_files < minfiles ) {
+        //             up.splice(minfiles);
+        //             alert('Upload, '+minfiles + ' min files.');
+        //             return;
+        //         }
+
+        //         plupload.each(files, function(file) {
+        //             homey_thumbs += '<div id="thumb-holder-' + file.id + '" class="col-sm-2 col-xs-4 listing-thumb">' + '' + '</div>';
+        //         });
+        //         document.getElementById('homey_gallery_container').innerHTML += homey_thumbs;
+        //         up.refresh();
+        //         plup_uploader.start();
+        //     });
+
+
+        //     plup_uploader.bind('UploadProgress', function(up, file) {
+        //         document.getElementById( "upload-progress-images" ).innerHTML = '<span class="alert alert-info">'+plup_uploader.total.uploaded + ' '+ uploaded_of_text + ' ' + plup_uploader.files.length+'</span>';
+        //        // document.getElementById( "thumb-holder-" + file.id ).innerHTML = '<span>' + file.percent + "%</span>";
+        //     });
+
+        //     plup_uploader.bind('Error', function( up, err ) {
+        //         document.getElementById('homey_errors').innerHTML += "<br/>" + "Error #" + err.code + ": " + err.message;
+        //     });
+
+        //     plup_uploader.bind('FileUploaded', function ( up, file, ajax_response ) {
+
+        //         var response = $.parseJSON( ajax_response.response );
+
+
+        //         if ( response.success ) {
+
+        //             var gallery_thumbnail = '<figure class="upload-gallery-thumb">' +
+        //                 '<img src="' + response.url + '" alt="thumb">' +
+        //                 '</figure>' +
+        //                 '<div class="upload-gallery-thumb-buttons">' +
+        //                 '<a class="icon-featured" data-thumb="' + response.thumb + '" data-listing-id="' + 0 + '"  data-attachment-id="' + response.attachment_id + '"><i class="homey-icon homey-icon-rating-star-full"></i></a>' +
+        //                 '<button class="icon-delete" data-listing-id="' + 0 + '"  data-attachment-id="' + response.attachment_id + '"><i class="homey-icon homey-icon-bin-1-interface-essential"></i></button>' +
+        //                 '<input type="hidden" class="listing-image-id" name="listing_image_ids[]" value="' + response.attachment_id + '"/>' +
+        //                 '</div>'+
+        //                 '<span style="display: none;" class="icon icon-loader"><i class="homey-icon homey-icon-loading-half fa-spin"></i></span>';
+
+        //             document.getElementById( "thumb-holder-" + file.id ).innerHTML = gallery_thumbnail;
+
+        //             lisitng_thumbnail_event();
+        //         } else {
+        //             var gallery_thumbnail = '<span class="error-message">'+response.reason+'</span>';
+
+        //             document.getElementById( "thumb-holder-" + file.id ).innerHTML = gallery_thumbnail;
+        //             console.log ( response );
+        //         }
+        //     });
+
+        //     plup_uploader.bind('FileUploaded', function() {
+        //         if (plup_uploader.files.length == (plup_uploader.total.uploaded + plup_uploader.total.failed)) {
+        //             document.getElementById( "upload-progress-images" ).innerHTML = '<span class="alert alert-success">'+process_completed_text+'.</span>';
+        //         }else{
+        //             document.getElementById( "upload-progress-images" ).innerHTML = '<span class="alert alert-info">'+plup_uploader.total.uploaded + ' '+ uploaded_of_text + ' ' +  plup_uploader.files.length+'</span>';
+        //         }
+        //     });
+
+        // }
+        // listing_gallery_images();
+
         var listing_gallery_images = function() {
 
             $(document).keypress(function(ev) {
@@ -1489,7 +1593,7 @@ jQuery(document).ready( function($) {
                     mime_types : [
                         { title : verify_file_type, extensions : "jpg,jpeg,gif,png" }
                     ],
-                    max_file_size: '30m',//image_max_file_size,
+                    max_file_size: '10m',//image_max_file_size,
                     prevent_duplicates: false
                 }
             });
@@ -1497,17 +1601,12 @@ jQuery(document).ready( function($) {
 
             plup_uploader.bind('FilesAdded', function(up, files) {
                 var homey_thumbs = "";
-                var files_added_count = files.length;
-                var minfiles = '5';
-                var existing_files = $('.upload-media-gallery').find('div.listing-thumb').length;
-                var total_files = files_added_count + existing_files;
-                
-                if(total_files < minfiles ) {
-                    up.splice(minfiles);
-                    alert('Upload, '+minfiles + ' min files.');
+                var maxfiles = '12';//max_prop_images;
+                if(up.files.length > maxfiles ) {
+                    up.splice(maxfiles);
+                    alert('no more than '+maxfiles + ' file(s)');
                     return;
                 }
-
                 plupload.each(files, function(file) {
                     homey_thumbs += '<div id="thumb-holder-' + file.id + '" class="col-sm-2 col-xs-4 listing-thumb">' + '' + '</div>';
                 });

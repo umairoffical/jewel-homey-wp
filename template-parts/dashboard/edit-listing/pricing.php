@@ -227,7 +227,7 @@ $guest_prices = get_post_meta($listing_data->ID, 'homey_guest_price', true);
                 '14_to_25' => esc_html__('14 - 25 Guests', 'homey-child'),
                 '26_to_35' => esc_html__('26 - 35 Guests', 'homey-child'),
                 '36_to_50' => esc_html__('36 - 50 Guests', 'homey-child'),
-                '50_to_75 Guests' => esc_html__('50 - 75 Guests', 'homey-child'),
+                '50_to_75' => esc_html__('50 - 75 Guests', 'homey-child'),
             ];
             ?>
 
