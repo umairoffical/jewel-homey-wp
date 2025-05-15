@@ -3,6 +3,7 @@
 include_once( get_stylesheet_directory() . '/framework/functions/child-register-scripts.php');
 include_once( get_stylesheet_directory() . '/framework/functions/child-listing.php');
 include_once( get_stylesheet_directory() . '/framework/functions/listing-booking.php');
+include_once( get_stylesheet_directory() . '/framework/functions/calendar-child.php');
 
 // ENQUEUE STYLES
 function homey_child_enqueue_styles() {
@@ -109,3 +110,52 @@ function homey_child_accessibility_taxonomy() {
     register_taxonomy('listing_accessibility', 'listing', $args);
 }
 add_action('init', 'homey_child_accessibility_taxonomy');
+
+
+function homey_get_price_label($number = 1) {
+    return esc_html__('Per Hour', 'homey');    
+}
+
+function homey_get_booking_start_date($reservation_id) {
+    $booking_dates = get_post_meta($reservation_id, 'reservation_booking_dates', true);
+    if (is_array($booking_dates) && !empty($booking_dates)) {
+        foreach($booking_dates as $items) {
+            if (!empty($items['arrive_date'])) {
+                return $items['arrive_date'];
+            }
+        }
+    }
+    return null;
+}
+
+function homey_get_booking_end_date($reservation_id) {
+    $booking_dates = get_post_meta($reservation_id, 'reservation_booking_dates', true);
+    if (is_array($booking_dates) && !empty($booking_dates)) {
+        $last_date = null;
+        foreach($booking_dates as $items) {
+            if (!empty($items['arrive_date'])) {
+                $last_date = $items['arrive_date'];
+            }
+        }
+        return $last_date;
+    }
+    return null;
+}
+
+function homey_get_total_guests_range($reservation_id, $listing_id){
+    $guest_price = get_post_meta($reservation_id, 'reservation_guests', true);
+    $guests_data = get_post_meta($listing_id, 'homey_guest_price', true);
+
+    if(!empty($guests_data)) {
+        foreach($guests_data as $key => $data) {
+            $price = $data['price'];
+
+            if($guest_price == $price) {
+                $total_guests = $key;
+            }
+        }
+        return str_replace('_', ' ', $total_guests);
+    } else {
+        $total_guests = 0;
+    }
+}

@@ -164,7 +164,7 @@ if(homey_is_admin()) {
                                             <?php if(homey_option('cgl_guests') != 0){ ?>
                                             <th><?php echo homey_option('glc_guests_label');?></th>
                                             <?php } ?>
-                                            <th><?php echo esc_attr($homey_local['pets_label']);?></th>
+                                            <!-- <th><?php //echo esc_attr($homey_local['pets_label']);?></th> -->
                                             <th><?php echo esc_attr($homey_local['subtotal_label']); ?></th>
                                             <th><?php echo esc_attr($homey_local['actions_label']); ?></th>
                                         </tr>

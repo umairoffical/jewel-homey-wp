@@ -59,7 +59,7 @@ for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
 //     $end_hours_list .= '<option '.selected($pre_end_hour, date('H:i',$halfhour), false).' value="'.date('H:i',$halfhour).'">'.date(homey_time_format(),$halfhour).'</option>';
 // }
 
-
+if(!wp_is_mobile()):
 ?>
 <div id="homey_remove_on_mobile" class="sidebar-booking-module hidden-sm hidden-xs">
     <div class="block">
@@ -91,70 +91,20 @@ for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
 
                     <?php
                 } else { ?>
-                    <div id="single-listing-date-range" class="search-date-range">
-                        <div class="search-date-range-arrive">
-                            <input name="arrive" value="<?php echo esc_attr($prefilled['arrive']); ?>" readonly
-                                   type="text" class="form-control check_in_date" autocomplete="off"
-                                   placeholder="<?php echo esc_attr(homey_option('srh_arrive_label')); ?>">
-                        </div>
-                        <div class="search-date-range-depart">
-                            <input name="depart" value="<?php echo esc_attr($prefilled['depart']); ?>" readonly
-                                   type="text" class="form-control check_out_date" autocomplete="off"
-                                   placeholder="<?php echo esc_attr(homey_option('srh_depart_label')); ?>">
-                        </div>
 
-                        <div id="single-booking-search-calendar"
-                             class="search-calendar single-listing-booking-calendar-js clearfix" style="display: none;">
-                            <?php
-                            $booking_type = homey_booking_type_by_id($listing_id);
-                            if ($booking_type == 'per_day_date') {
-                                homeyAvailabilityCalendarDayDate();
-                            } else {
-                                homeyAvailabilityCalendar();
-                            }
-                            ?>
-
-                            <div class="calendar-navigation custom-actions">
-                                <button class="listing-cal-prev btn btn-action pull-left disabled"><i class="homey-icon homey-icon-arrow-left-1" aria-hidden="true"></i></button>
-                                <button class="listing-cal-next btn btn-action pull-right"><i class="homey-icon homey-icon-arrow-right-1" aria-hidden="true"></i></button>
-                            </div><!-- calendar-navigation -->
-                        </div>
-                    </div>
-
-                    <div class="search-hours-range clearfix">
-                        <div class="search-hours-range-left">
-                            <select name="start_hour" id="start_hour" class="selectpicker start_hour" data-live-search="true" title="<?php echo homey_option('srh_starts_label'); ?>">
-                                <option value=""><?php echo homey_option('srh_starts_label'); ?></option>
-                                <?php echo ''.$start_hours_list; ?>
-                            </select>
-                        </div>
-                        <div class="search-hours-range-right">
-                            <select name="end_hour" id="end_hour" class="selectpicker end_hour" data-live-search="true" title="<?php echo homey_option('srh_ends_label'); ?>">
-                                <option value=""><?php echo homey_option('srh_ends_label'); ?></option>
-                                <?php echo ''.$end_hours_list; ?>
-                            </select>
-                        </div>
-                    </div>
-            
-                    <div class="single-total-hours mb-5" style="display: none;">
-                        <span class="total-hours-label"><?php esc_html_e('Total Hours:', 'homey-child');?></span>
-                        <span class="total-hours-value"></span>
-                    </div>
-
+                    <?php get_template_part('single-listing/booking/choose-hours'); ?>
                     <?php get_template_part('single-listing/booking/guests'); ?>
-
                     <?php get_template_part('single-listing/booking/extra-prices'); ?>
-
 
                     <?php if ($offsite_payment == 0) { ?>
                         <div class="search-message">
-                            <textarea name="guest_message" class="form-control" rows="3"
+                            <textarea name="guest_message" class="form-control guest-message" rows="3"
                                       placeholder="<?php echo esc_html__('Introduce yourself to the host', 'homey'); ?>"></textarea>
                         </div>
                     <?php } ?>
 
                     <?php if (!is_user_logged_in() && $no_login_needed_for_booking == 'yes') { ?>
-                        <div class="new_reser_request_user_email ">
+                        <div class="new_reser_request_user_email mt-10">
                             <input id="new_reser_request_user_email" name="new_reser_request_user_email"
                                    required="required"
                                    value="<?php echo esc_attr($prefilled['new_reser_request_user_email']); ?>"
@@ -177,7 +127,7 @@ for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
                         <button id="instance_reservation" type="button"
                                 class="btn btn-full-width btn-primary"><?php echo esc_html__('Instant Booking', 'homey'); ?></button>
                     <?php } else { ?>
-                        <button id="request_for_reservation" type="button" disabled
+                        <button id="request_for_reservation" type="button"
                                 class="btn btn-full-width btn-primary"><?php echo esc_html__('Request to Book', 'homey'); ?></button>
                         <div class="text-center text-small"><i
                                     class="homey-icon homey-icon-information-circle"></i> <?php echo esc_html__("You won't be charged yet", 'homey'); ?>
@@ -218,3 +168,4 @@ for ($hour = $start_hour; $hour <= $end_hour; $hour = $hour+60*60) {
     }
     ?>
 </div><!-- sidebar-booking-module-footer -->
+<?php endif; ?>

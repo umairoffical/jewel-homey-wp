@@ -204,3 +204,59 @@ Template: homey
 .select-listings-guests .btn.dropdown-toggle:hover .select-listings-guests::after{
     display: block !important;
 }
+.single-date-hour {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+.single-date-hour .choose-hours {
+    display: flex;
+    gap: 5px;
+}
+.single-date-hour .choose-date {
+    width: 50%;
+}
+.single-date-hour .choose-start-hours,
+.single-date-hour .choose-end-hours {
+    width: 50% !important;
+}
+.choose-hours select {
+    height: 46px !important;
+}
+.choose-date input,
+.choose-hours select {
+    border: none;
+    border-bottom: 1px solid #d8dce1;
+    border-radius: 0px;
+}
+#single-booking-search-calendar {
+    width: 300px;
+    left: 0;
+}
+#single-booking-search-calendar::before {
+    left: 20;
+}
+.remove-booking-hour-row {
+    border: 1px solid #f15e75;
+    position: absolute;
+    right: -20px;
+    padding: 0px 5px;
+    border-radius: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+.remove-booking-hour-row:hover{
+    background-color: #f15e75;
+    color: white;
+}
+.reservation-detail-page-payment ul {
+    padding-left: 0px;
+    list-style-type: none;
+}
+.reservation-detail-page-payment ul li {
+    display: flex;
+    justify-content: space-between;
+}
+.payment-list .reservation-detail-page-payment ul li {
+    display: block;
+}

@@ -6,7 +6,7 @@ $extra_prices = get_post_meta($listing_id, 'homey_extra_prices', true);
 if(!empty($extra_prices[0]['name']) || !empty($extra_prices[-1]['name'])) {
 ?>
 <div class="search-extra-services">
-	<strong><?php esc_html_e('Extra services', 'homey'); ?></strong>
+	<strong><?php esc_html_e('Add Ons', 'homey'); ?></strong>
 	<ul class="extra-services-list list-unstyled clearfix">
 		<?php
 		if(is_array($extra_prices)) {
@@ -19,7 +19,7 @@ if(!empty($extra_prices[0]['name']) || !empty($extra_prices[-1]['name'])) {
 					</label>
 					<span><?php echo homey_formatted_price($option['price']); ?></span>
 				</li>
-		<?php    	
+			<?php    	
 		    }
 		}
 		?>

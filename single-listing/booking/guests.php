@@ -17,7 +17,7 @@ if(@$booking_hide_fields['guests'] != 1) {
 					foreach($guest_prices as $key => $price):
 						if($price['available'] == 'yes' && !empty($price['price'])):
 							?>
-								<option value="<?php echo $price['price'];?>"><?php echo str_replace('_', ' ', $key);?> <?php esc_html_e('Guests','homey-child');?></option>
+								<option value="<?php echo $price['price'];?>"><?php echo str_replace('_', ' ', $key);?> <?php esc_html_e('Guests | ','homey-child');?><?php echo homey_formatted_price($price['price'], true, true);?></option>
 							<?php
 						endif;
 					endforeach;

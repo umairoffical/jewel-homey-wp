@@ -23,6 +23,9 @@ jQuery(document).ready(function ($) {
         var booking_end_hour = HOMEY_ajax_vars.booking_end_hour;
         var homey_min_book_days = HOMEY_ajax_vars.homey_min_book_days;
 
+        var current_month = 1;
+        var current_month2 = 2;
+
         if( booked_hours_array !=='' && booked_hours_array.length !== 0 ) {
             booked_hours_array   = JSON.parse (booked_hours_array);
         }
@@ -49,13 +52,16 @@ jQuery(document).ready(function ($) {
         var exp_calendar_link = HOMEY_ajax_vars.exp_calendar_link;
         var focusedInput_2 = null;
 
+        var homey_calendar_months = HOMEY_ajax_vars.homey_calendar_months;
+
         var allowed_guests_plus_additional = parseInt(allowed_guests_num) + parseInt(num_additional_guests);
 
         var compare_url = HOMEY_ajax_vars.compare_url;
         var add_compare = HOMEY_ajax_vars.add_compare;
         var remove_compare = HOMEY_ajax_vars.remove_compare;
         var compare_limit = HOMEY_ajax_vars.compare_limit;
-        var homey_booking_type = HOMEY_ajax_vars.homey_booking_type;
+        // var homey_booking_type = HOMEY_ajax_vars.homey_booking_type;
+        var homey_booking_type = 'per_hour';
 
         var homey_is_rtl = HOMEY_ajax_vars.homey_is_rtl;
 
@@ -935,25 +941,18 @@ jQuery(document).ready(function ($) {
 
         }
 
-        var homey_calculate_booking_cost = function(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options) {
+        var homey_calculate_booking_cost = function(booking_dates, total_hours, guests, listing_id, security, extra_options) {
             var $this = $(this);
             var notify = $('.homey_notification');
             notify.find('.notify').remove();
-
-            if(check_in_date === '' || check_out_date === '' || start_hour === '' || end_hour === '') {
-                $('#homey_booking_cost, .payment-list').empty();
-                return;
-            }
 
             $.ajax({
                 type: 'post',
                 url: ajaxurl,
                 data: {
                     'action': 'homey_calculate_booking_cost',
-                    'check_in_date': check_in_date,
-                    'check_out_date': check_out_date,
-                    'start_hour': start_hour,
-                    'end_hour': end_hour,
+                    'booking_dates' : booking_dates,
+                    'total_hours' : total_hours,
                     'guests': guests,
                     'extra_options': extra_options,
                     'listing_id': listing_id,
@@ -966,7 +965,25 @@ jQuery(document).ready(function ($) {
                     notify.find('.homey_preloader').show();
                 },
                 success: function(data) {
-                    $('#homey_booking_cost, .payment-list').empty().html(data);
+                    console.log(data);
+                    var response = typeof data === 'string' ? JSON.parse(data) : data;
+                    if( response.success ) {
+
+                        if(notify.find('.notify').length > 1) {
+                            notify.find('.notify').first().remove();
+                        }
+                        notify.prepend('<div class="notify text-success text-center btn-success-outlined btn btn-full-width">'+response.message+'</div>');
+
+                        $('#homey_booking_cost, .payment-list').empty().html(response.output);
+
+                    } else {
+                        if(notify.find('.notify').length > 1) {
+                            notify.find('.notify').first().remove();
+                        }
+                        notify.prepend('<div class="notify text-danger text-center btn-danger-outlined btn btn-full-width">'+response.message+'</div>');
+                    }
+
+                    // $('#homey_booking_cost, .payment-list').empty().html(data);
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -1066,7 +1083,7 @@ jQuery(document).ready(function ($) {
             });
         }
 
-        var check_booking_availability_on_date_change = function(check_in_date, check_out_date, start_hour, end_hour, listing_id, security) {
+        var check_booking_availability_on_date_change = function(check_in_date, check_out_date, total_hours, listing_id, security) {
             var $this = $(this);
 
             var notify = $('.homey_notification');
@@ -1084,8 +1101,7 @@ jQuery(document).ready(function ($) {
                     'action': 'check_booking_availability_on_date_change',
                     'check_in_date': check_in_date,
                     'check_out_date': check_out_date,
-                    'start_hour': start_hour,
-                    'end_hour': end_hour,
+                    'total_hours' : total_hours,
                     'listing_id': listing_id,
                     'security': security
                 },
@@ -1226,11 +1242,11 @@ jQuery(document).ready(function ($) {
 
         // Single listing booking form
         $("#single-listing-date-range input").on('focus', function() {
-            $('.single-listing-booking-calendar-js').css("display", "block");
-            $('.single-listing-booking-calendar-js').addClass("arrive_active");
-            $('.single-form-guests-js').css("display", "none");
+            $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').css("display", "block");
+            $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').addClass("arrive_active");
+            $(this).closest('.single-date-hour').find('.single-form-guests-js').css("display", "none");
             focusedInput_2 = $(this).attr('name');
-            $('.single-listing-booking-calendar-js').removeClass('arrive_active depart_active').addClass(focusedInput_2+'_active');
+            $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').removeClass('arrive_active depart_active').addClass(focusedInput_2+'_active');
         });
 
         $(".single-guests-js input").on('focus', function() {
@@ -1375,12 +1391,11 @@ jQuery(document).ready(function ($) {
                     }
                 });
 
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
+                var total_hours = $('.total-hours-count-hidden').val();
                 var guests = $("#select-listings-guests option:selected").val();
                 var listing_id = $('#listing_id').val();
                 var security = $('#reservation-security').val();
-                homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
+                homey_calculate_booking_cost(check_in_date, check_out_date, total_hours, guests, listing_id, security, extra_options);
             }
 
             if( is_singular_listing == 'yes' ) {
@@ -1408,202 +1423,212 @@ jQuery(document).ready(function ($) {
                     }
                 });
 
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
+                var total_hours = $('.total-hours-count-hidden').val();
                 var guests = $("#select-listings-guests option:selected").val();
                 var listing_id = $('#listing_id').val();
                 var security = $('#reservation-security').val();
-                homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
-                check_booking_availability_on_date_change(check_in_date, check_out_date, start_hour, end_hour, listing_id, security);
+                homey_calculate_booking_cost(check_in_date, check_out_date, total_hours, guests, listing_id, security, extra_options);
+                check_booking_availability_on_date_change(check_in_date, check_out_date, total_hours, listing_id, security);
             }
-
-            $('#select-listings-guests').on('change', function () {
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var extra_options = []; 
-                var temp_opt;
-
-                $('.homey_extra_price input').each(function() {
-
-                    if( ($(this).is(":checked")) ) {
-                        var extra_name = $(this).data('name');
-                        var extra_price = $(this).data('price');
-                        var extra_type = $(this).data('type');
-                        temp_opt    =   '';
-                        temp_opt    =   extra_name;
-                        temp_opt    =   temp_opt + '|' + extra_price;
-                        temp_opt    =   temp_opt + '|' + extra_type;
-                        extra_options.push(temp_opt);
-                    }
-
-                });
-
-                var check_out_date = $('input[name="depart"]').val();
-                check_out_date = homey_convert_date(check_out_date);
-
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
-                var guests = $("#select-listings-guests option:selected").val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
-                check_booking_availability_on_date_change(check_in_date, check_out_date, start_hour, end_hour, listing_id, security);
-            });
-
-            $('.homey_extra_price input').on('click', function(){
-                var extra_options = []; 
-                var temp_opt;
-
-                $('.homey_extra_price input').each(function() {
-
-                    if( ($(this).is(":checked")) ) {
-                        var extra_name = $(this).data('name');
-                        var extra_price = $(this).data('price');
-                        var extra_type = $(this).data('type');
-                        temp_opt    =   '';
-                        temp_opt    =   extra_name;
-                        temp_opt    =   temp_opt + '|' + extra_price;
-                        temp_opt    =   temp_opt + '|' + extra_type;
-                        extra_options.push(temp_opt);
-                    }
-
-                });
-
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var check_out_date = $('input[name="depart"]').val();
-                check_out_date = homey_convert_date(check_out_date);
-
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
-                var guests = $("#select-listings-guests option:selected").val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
-
-            });
         }
+
+
+        /***************************************************************************/
+        // PER HOUR BOOKINGS
+        /***************************************************************************/
 
         if(homey_booking_type == 'per_hour') {
 
             $('.hourly-js-desktop ul li').on('click', function () {
                 var $this = $(this);
                 var vl = $this.data('formatted-date');
-                $('input[name="arrive"]').val(vl);
+                // Change date format to MM-DD-YYYY
+                // var formattedDate = moment(vl, "DD-MM-YYYY").format("MM-DD-YYYY");
+                // vl = formattedDate;
+                $this.closest('.single-date-hour').find('.check_in_arrive_date').val(vl);
 
                 $('.single-listing-hourly-calendar-wrap ul li').removeClass('selected');
                 $this.addClass('selected');
 
                 $('#single-booking-search-calendar, #single-overlay-booking-search-calendar').hide();
 
-                var check_in_date = $('input[name="arrive"]').val();
+                var check_in_date = $('.check_in_arrive_date').val();
                 check_in_date = homey_convert_date(check_in_date);
-
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
-                var guests = $('input[name="guests"]').val();
                 var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
-
-                if(check_in_date === '' || start_hour === '' || end_hour === '')
-                    return;
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
-            });
-
-            $('.hourly-js-mobile ul li').on('click', function () {
                 var $this = $(this);
-                var vl = $this.data('formatted-date');
-                $('input[name="arrive"]').val(vl);
 
-                $('.single-listing-hourly-calendar-wrap ul li').removeClass('selected');
-                $this.addClass('selected');
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'homey_show_hours_based_on_date',
+                        check_in_date: check_in_date,
+                        listing_id: listing_id
+                    },
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        if(response.success) {
+                            $this.closest('.single-date-hour').find('#start_hour').html(response.options);
+                            var $endHour = $this.closest('.single-date-hour').find('#end_hour');
+                            $endHour.html(response.options);
+                            $endHour.find('option:last').prop('selected', true);
 
-                $('#single-booking-search-calendar, #single-overlay-booking-search-calendar').hide();
+                            $('.remove-booking-hour-row').on('click', function() {
+                                $(this).closest('.single-date-hour').remove();
+                            });
 
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var start_hour = $('#start_hour_overlay').val();
-                var end_hour = $('#end_hour_overlay').val();
-                var guests = $('input[name="guests"]').val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
-
-                if(check_in_date === '' || start_hour === '' || end_hour === '')
-                    return;
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+                            count_total_hours();
+                        }
+                    }
+                });
             });
 
-            $('#start_hour_overlay').on('change', function () {
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var start_hour = $('#start_hour_overlay').val();
-                var end_hour = $('#end_hour_overlay').val();
-                var guests = $('input[name="guests"]').val();
+            $('.remove-booking-hour-row').on('click', function() {
+                $(this).closest('.single-date-hour').remove();
+            });
+            
+            $('.add-more-date-hours-btn').on('click', function() {
                 var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
 
-                if(check_in_date === '' || start_hour === '' || end_hour === '')
-                    return;
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        'action': 'booking_add_multiple_dates',
+                        'listing_id': listing_id
+                    },
+                    beforeSend: function() {
+                        $('.add-more-date-hours-btn').text('Adding...');
+                    },
+                    success: function(response) {
+                        var response = JSON.parse(response);
+                        if(response.success) {
+                            $('.multiple-date-hours-container').append(response.html);
+
+                            $('.remove-booking-hour-row').on('click', function() {
+                                count_total_hours();
+                                $(this).closest('.single-date-hour').remove();
+                            });
+
+                            $('.add-more-date-hours-btn').html('<i class="fa fa-plus" aria-hidden="true"></i> Add Day');
+
+                            $("#single-listing-date-range input").on('focus', function() {
+                                $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').css("display", "block");
+                                $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').addClass("arrive_active");
+                                $(this).closest('.single-date-hour').find('.single-form-guests-js').css("display", "none");
+                                focusedInput_2 = $(this).attr('name');
+                                $(this).closest('.single-date-hour').find('.single-listing-booking-calendar-js').removeClass('arrive_active depart_active').addClass(focusedInput_2+'_active');
+                            });
+
+                            $(".btn-cross-calendar, #calendar-cross-btn, #calendar-cross-btn-i").on('click', function(){
+                                $(".single-listing-booking-calendar-js").css("display", "none");
+                                $(".single-experience-booking-calendar-js").css("display", "none");
+                                $(".search-calendar-main").css("display", "none");
+                            });
+
+                            calendar_next_prev_child('single-listing-hourly-calendar-wrap', 'listing-cal-next', true, true);
+                            calendar_next_prev_child('single-listing-hourly-calendar-wrap', 'listing-cal-prev', false, true);
+
+                            $('.start_hour').on('change', function(){
+                                count_total_hours();
+                            });
+                
+                            $('.end_hour').on('change', function(){
+                                count_total_hours();
+                            });
+
+                            // Here we go!
+                            $('.hourly-js-desktop ul li').on('click', function () {
+                                var $this = $(this);
+                                var vl = $this.data('formatted-date');
+                                // Change date format to MM-DD-YYYY
+                                // var formattedDate = moment(vl, "DD-MM-YYYY").format("MM-DD-YYYY");
+                                // vl = formattedDate;
+                                $this.closest('.single-date-hour').find('.check_in_arrive_date').val(vl);
+                
+                                $('.single-listing-hourly-calendar-wrap ul li').removeClass('selected');
+                                $this.addClass('selected');
+                
+                                $('#single-booking-search-calendar, #single-overlay-booking-search-calendar').hide();
+                
+                                var check_in_date = $this.closest('.single-date-hour').find('.check_in_arrive_date').val();
+                                check_in_date = homey_convert_date(check_in_date);
+                                var listing_id = $('#listing_id').val();
+                                var $this = $(this);
+                
+                                $.ajax({
+                                    url: ajaxurl,
+                                    type: 'POST',
+                                    data: {
+                                        action: 'homey_show_hours_based_on_date',
+                                        check_in_date: check_in_date,
+                                        listing_id: listing_id
+                                    },
+                                    success: function(response) {
+                                        response = JSON.parse(response);
+                                        if(response.success) {
+                                            $this.closest('.single-date-hour').find('#start_hour').html(response.options);
+                                            var $endHour = $this.closest('.single-date-hour').find('#end_hour');
+                                            $endHour.html(response.options);
+                                            $endHour.find('option:last').prop('selected', true);
+
+                                            $('.remove-booking-hour-row').on('click', function() {
+                                                count_total_hours();
+                                                $(this).closest('.single-date-hour').remove();
+                                            });
+
+                                            // count number of hours 
+                                            count_total_hours();
+                                        }
+                                    }
+                                });
+                            });
+
+                        }
+                    },
+                    error: function(errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
             });
 
-            $('#end_hour_overlay').on('change', function () {
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var start_hour = $('#start_hour_overlay').val();
-                var end_hour = $('#end_hour_overlay').val();
-                var guests = $('input[name="guests"]').val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            $('.start_hour').on('change', function(){
+                count_total_hours();
             });
 
-            $('.apply_guests').on('click', function () {
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
-
-                var start_hour = $('select[name="start_hour"]').val();
-                var end_hour = $('select[name="end_hour"]').val();
-                var guests = $('input[name="guests"]').val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            $('.end_hour').on('change', function(){
+                count_total_hours();
             });
 
-            $('#apply_guests_hourly').on('click', function () {
-                var check_in_date = $('input[name="arrive"]').val();
-                check_in_date = homey_convert_date(check_in_date);
+            function count_total_hours(){
+                var total_hours = 0;
 
-                var start_hour = $('#start_hour_overlay').val();
-                var end_hour = $('#end_hour_overlay').val();
-                var guests = $('input[name="guests"]').val();
-                var listing_id = $('#listing_id').val();
-                var security = $('#reservation-security').val();
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
-                check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+                $('.single-date-hour').each(function(){
+                    var start_hour = $(this).find('#start_hour').val();
+                    var end_hour = $(this).find('#end_hour').val();
+                    var hours = end_hour - start_hour;
+                    total_hours += hours;
+                });
+
+                $('.total-hours-count-hidden').val(total_hours);
+                $('.total-hours-count-number').text(total_hours);
+
+                homey_all_booking_fields();
+            }
+
+            $('#select-listings-guests').on('change', function () {
+                homey_all_booking_fields();
             });
-
 
             $('.homey_extra_price input').on('click', function(){
-                var extra_options = []; var temp_opt;
-                var items_for_checkboxes = $('.homey_extra_price input');
+                homey_all_booking_fields();
+            });
 
-                if($("#overlay-booking-module").hasClass("open")){
-                    items_for_checkboxes = $("#overlay-booking-module").find('.homey_extra_price input');
-                }
+            function homey_all_booking_fields(){
+                var extra_options = []; 
+                var temp_opt;
 
-                $(items_for_checkboxes).each(function() {
-
+                $('.homey_extra_price input').each(function() {
                     if( ($(this).is(":checked")) ) {
                         var extra_name = $(this).data('name');
                         var extra_price = $(this).data('price');
@@ -1614,98 +1639,213 @@ jQuery(document).ready(function ($) {
                         temp_opt    =   temp_opt + '|' + extra_type;
                         extra_options.push(temp_opt);
                     }
-
                 });
 
-                if($("#overlay-booking-module").hasClass("open")){
-                    var check_in_date = $("#overlay-booking-module").find('input[name="arrive"]').val();
-                    var start_hour = $("#overlay-booking-module").find('select[name="start_hour"]').val();
-                    var end_hour = $("#overlay-booking-module").find('select[name="end_hour"]').val();
-                    var guests = $("#overlay-booking-module").find('input[name="guests"]').val();
-                    var listing_id = $("#overlay-booking-module").find('#listing_id').val();
-                    var security = $("#overlay-booking-module").find('#reservation-security').val();
-                }else{
-                    var check_in_date = $('input[name="arrive"]').val();
-                    var start_hour = $('select[name="start_hour"]').val();
-                    var end_hour = $('select[name="end_hour"]').val();
-                    var guests = $('input[name="guests"]').val();
-                    var listing_id = $('#listing_id').val();
-                    var security = $('#reservation-security').val();
-                }
+                var booking_dates = [];
+                $('.single-date-hour').each(function(index){
+                    var start_hour = $(this).find('#start_hour').val();
+                    var end_hour = $(this).find('#end_hour').val();
+                    var arrive_date = $(this).find('#hourly_check_inn').val();
 
-                check_in_date = homey_convert_date(check_in_date);
-                homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security, extra_options);
+                    booking_dates[index + 1] = {
+                        'arrive_date': arrive_date,
+                        'start_hour': start_hour,
+                        'end_hour': end_hour
+                    };
+                });
 
-            });
+                var total_hours = $('.total-hours-count-hidden').val();
+                var guests = $("#select-listings-guests option:selected").val();
+                var listing_id = $('#listing_id').val();
+                var security = $('#reservation-security').val();
+                homey_calculate_booking_cost(booking_dates, total_hours, guests, listing_id, security, extra_options);
+            }
+
+            // $('.hourly-js-mobile ul li').on('click', function () {
+            //     var $this = $(this);
+            //     var vl = $this.data('formatted-date');
+            //     $('input[name="arrive"]').val(vl);
+
+            //     $('.single-listing-hourly-calendar-wrap ul li').removeClass('selected');
+            //     $this.addClass('selected');
+
+            //     $('#single-booking-search-calendar, #single-overlay-booking-search-calendar').hide();
+
+            //     var check_in_date = $('input[name="arrive"]').val();
+            //     check_in_date = homey_convert_date(check_in_date);
+
+            //     var start_hour = $('#start_hour_overlay').val();
+            //     var end_hour = $('#end_hour_overlay').val();
+            //     var guests = $('input[name="guests"]').val();
+            //     var listing_id = $('#listing_id').val();
+            //     var security = $('#reservation-security').val();
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
+
+            //     if(check_in_date === '' || start_hour === '' || end_hour === '')
+            //         return;
+            //     check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            // });
+
+            // $('#start_hour_overlay').on('change', function () {
+            //     var check_in_date = $('input[name="arrive"]').val();
+            //     check_in_date = homey_convert_date(check_in_date);
+
+            //     var start_hour = $('#start_hour_overlay').val();
+            //     var end_hour = $('#end_hour_overlay').val();
+            //     var guests = $('input[name="guests"]').val();
+            //     var listing_id = $('#listing_id').val();
+            //     var security = $('#reservation-security').val();
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
+
+            //     if(check_in_date === '' || start_hour === '' || end_hour === '')
+            //         return;
+            //     check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            // });
+
+            // $('#end_hour_overlay').on('change', function () {
+            //     var check_in_date = $('input[name="arrive"]').val();
+            //     check_in_date = homey_convert_date(check_in_date);
+
+            //     var start_hour = $('#start_hour_overlay').val();
+            //     var end_hour = $('#end_hour_overlay').val();
+            //     var guests = $('input[name="guests"]').val();
+            //     var listing_id = $('#listing_id').val();
+            //     var security = $('#reservation-security').val();
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
+            //     check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            // });
+
+            // $('.apply_guests').on('click', function () {
+            //     var check_in_date = $('input[name="arrive"]').val();
+            //     check_in_date = homey_convert_date(check_in_date);
+
+            //     var start_hour = $('select[name="start_hour"]').val();
+            //     var end_hour = $('select[name="end_hour"]').val();
+            //     var guests = $('input[name="guests"]').val();
+            //     var listing_id = $('#listing_id').val();
+            //     var security = $('#reservation-security').val();
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
+            //     check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            // });
+
+            // $('#apply_guests_hourly').on('click', function () {
+            //     var check_in_date = $('input[name="arrive"]').val();
+            //     check_in_date = homey_convert_date(check_in_date);
+
+            //     var start_hour = $('#start_hour_overlay').val();
+            //     var end_hour = $('#end_hour_overlay').val();
+            //     var guests = $('input[name="guests"]').val();
+            //     var listing_id = $('#listing_id').val();
+            //     var security = $('#reservation-security').val();
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security);
+            //     check_booking_availability_on_hour_change(check_in_date, start_hour, end_hour, listing_id, security);
+            // });
+
+
+            // $('.homey_extra_price input').on('click', function(){
+            //     var extra_options = []; var temp_opt;
+            //     var items_for_checkboxes = $('.homey_extra_price input');
+
+            //     if($("#overlay-booking-module").hasClass("open")){
+            //         items_for_checkboxes = $("#overlay-booking-module").find('.homey_extra_price input');
+            //     }
+
+            //     $(items_for_checkboxes).each(function() {
+
+            //         if( ($(this).is(":checked")) ) {
+            //             var extra_name = $(this).data('name');
+            //             var extra_price = $(this).data('price');
+            //             var extra_type = $(this).data('type');
+            //             temp_opt    =   '';
+            //             temp_opt    =   extra_name;
+            //             temp_opt    =   temp_opt + '|' + extra_price;
+            //             temp_opt    =   temp_opt + '|' + extra_type;
+            //             extra_options.push(temp_opt);
+            //         }
+
+            //     });
+
+            //     if($("#overlay-booking-module").hasClass("open")){
+            //         var check_in_date = $("#overlay-booking-module").find('input[name="arrive"]').val();
+            //         var start_hour = $("#overlay-booking-module").find('select[name="start_hour"]').val();
+            //         var end_hour = $("#overlay-booking-module").find('select[name="end_hour"]').val();
+            //         var guests = $("#overlay-booking-module").find('input[name="guests"]').val();
+            //         var listing_id = $("#overlay-booking-module").find('#listing_id').val();
+            //         var security = $("#overlay-booking-module").find('#reservation-security').val();
+            //     }else{
+            //         var check_in_date = $('input[name="arrive"]').val();
+            //         var start_hour = $('select[name="start_hour"]').val();
+            //         var end_hour = $('select[name="end_hour"]').val();
+            //         var guests = $('input[name="guests"]').val();
+            //         var listing_id = $('#listing_id').val();
+            //         var security = $('#reservation-security').val();
+            //     }
+
+            //     check_in_date = homey_convert_date(check_in_date);
+            //     homey_calculate_hourly_booking_cost(check_in_date, start_hour, end_hour, guests, listing_id, security, extra_options);
+
+            // });
 
         }
 
-        $('.start_hour').on('change', function () {
-            var extra_options = []; 
-            var temp_opt;
-            $('.homey_extra_price input').each(function() {
-                if( ($(this).is(":checked")) ) {
-                    var extra_name = $(this).data('name');
-                    var extra_price = $(this).data('price');
-                    var extra_type = $(this).data('type');
-                    temp_opt    =   '';
-                    temp_opt    =   extra_name;
-                    temp_opt    =   temp_opt + '|' + extra_price;
-                    temp_opt    =   temp_opt + '|' + extra_type;
-                    extra_options.push(temp_opt);
-                }
-            });
+        // $('.start_hour').on('change', function () {
+        //     var extra_options = []; 
+        //     var temp_opt;
+        //     $('.homey_extra_price input').each(function() {
+        //         if( ($(this).is(":checked")) ) {
+        //             var extra_name = $(this).data('name');
+        //             var extra_price = $(this).data('price');
+        //             var extra_type = $(this).data('type');
+        //             temp_opt    =   '';
+        //             temp_opt    =   extra_name;
+        //             temp_opt    =   temp_opt + '|' + extra_price;
+        //             temp_opt    =   temp_opt + '|' + extra_type;
+        //             extra_options.push(temp_opt);
+        //         }
+        //     });
 
-            var check_in_date = $('input[name="arrive"]').val();
-            check_in_date = homey_convert_date(check_in_date);
+        //     var check_in_date = '';
+        //     var check_out_date = '';
 
-            var check_out_date = $('input[name="depart"]').val();
-            check_out_date = homey_convert_date(check_out_date);
+        //     var total_hours = $('.total-hours-count-hidden').val();
+        //     var guests = $("#select-listings-guests option:selected").val();
+        //     var listing_id = $('#listing_id').val();
+        //     var security = $('#reservation-security').val();
 
-            var start_hour = $('select[name="start_hour"]').val();
-            var end_hour = $('select[name="end_hour"]').val();
-            var guests = $("#select-listings-guests option:selected").val();
-            var listing_id = $('#listing_id').val();
-            var security = $('#reservation-security').val();
+        //     homey_calculate_booking_cost(check_in_date, check_out_date, total_hours, guests, listing_id, security, extra_options);
+        //     check_booking_availability_on_date_change(check_in_date, check_out_date, total_hours, listing_id, security);
+        // });
 
-            homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
-            check_booking_availability_on_date_change(check_in_date, check_out_date, start_hour, end_hour, listing_id, security);
-        });
-
-        $('.end_hour').on('change', function () {
+        // $('.end_hour').on('change', function () {
             
-            var extra_options = []; 
-            var temp_opt;
-            $('.homey_extra_price input').each(function() {
+        //     var extra_options = []; 
+        //     var temp_opt;
+        //     $('.homey_extra_price input').each(function() {
 
-                if( ($(this).is(":checked")) ) {
-                    var extra_name = $(this).data('name');
-                    var extra_price = $(this).data('price');
-                    var extra_type = $(this).data('type');
-                    temp_opt    =   '';
-                    temp_opt    =   extra_name;
-                    temp_opt    =   temp_opt + '|' + extra_price;
-                    temp_opt    =   temp_opt + '|' + extra_type;
-                    extra_options.push(temp_opt);
-                }
+        //         if( ($(this).is(":checked")) ) {
+        //             var extra_name = $(this).data('name');
+        //             var extra_price = $(this).data('price');
+        //             var extra_type = $(this).data('type');
+        //             temp_opt    =   '';
+        //             temp_opt    =   extra_name;
+        //             temp_opt    =   temp_opt + '|' + extra_price;
+        //             temp_opt    =   temp_opt + '|' + extra_type;
+        //             extra_options.push(temp_opt);
+        //         }
 
-            });
+        //     });
 
-            var check_in_date = $('input[name="arrive"]').val();
-            check_in_date = homey_convert_date(check_in_date);
+        //     var check_in_date = '';
+        //     var check_out_date = '';
 
-            var check_out_date = $('input[name="depart"]').val();
-            check_out_date = homey_convert_date(check_out_date);
+        //     var total_hours = $('.total-hours-count-hidden').val();
+        //     var guests = $("#select-listings-guests option:selected").val();
+        //     var listing_id = $('#listing_id').val();
+        //     var security = $('#reservation-security').val();
 
-            var start_hour = $('select[name="start_hour"]').val();
-            var end_hour = $('select[name="end_hour"]').val();
-            var guests = $("#select-listings-guests option:selected").val();
-            var listing_id = $('#listing_id').val();
-            var security = $('#reservation-security').val();
-
-            homey_calculate_booking_cost(check_in_date, check_out_date, start_hour, end_hour, guests, listing_id, security, extra_options);
-            check_booking_availability_on_date_change(check_in_date, check_out_date, start_hour, end_hour, listing_id, security);
-        });
+        //     homey_calculate_booking_cost(check_in_date, check_out_date, total_hours, guests, listing_id, security, extra_options);
+        //     check_booking_availability_on_date_change(check_in_date, check_out_date, total_hours, listing_id, security);
+        // });
 
         /* ------------------------------------------------------------------------ */
         /*  Guests count
@@ -2120,37 +2260,8 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
 
             var $this = $(this);
-            var extra_options = [];
+            var extra_options = []; 
             var temp_opt;
-            var check_in_date = $('input[name="arrive"]').val();
-            check_in_date = homey_convert_date(check_in_date);
-
-            var check_out_date = $('input[name="depart"]').val();
-            check_out_date = homey_convert_date(check_out_date);
-
-            var guest_message = $('textarea[name="guest_message"]').val();
-
-            if(guest_message == ''){
-                guest_message = $('#overlay-booking-module').find('textarea[name="guest_message"]').val();
-            }
-
-            var guests = $('input[name="guests"]').val();
-            var adult_guest = $('input[name="adult_guest"]').val();
-            var child_guest = $('input[name="child_guest"]').val();
-
-            var listing_id = $('#listing_id').val();
-            var new_reser_request_user_email = $('#new_reser_request_user_email').val();
-
-            if(new_reser_request_user_email == ''){
-                new_reser_request_user_email = $('#overlay-booking-module').find('#new_reser_request_user_email').val();
-            }
-
-            var security = $('#reservation-security').val();
-            var notify = $this.parents('.homey_notification');
-            notify.find('.notify').remove();
-
-            save_booking_details($('input[name="arrive"]').val(), $('input[name="depart"]').val(), guests, guest_message, adult_guest, child_guest, new_reser_request_user_email);
-
             $('.homey_extra_price input').each(function() {
                 if( ($(this).is(":checked")) ) {
                     var extra_name = $(this).data('name');
@@ -2164,10 +2275,33 @@ jQuery(document).ready(function ($) {
                 }
             });
 
-            var action_name_for_wp_action = 'homey_add_reservation';
-            if (new_reser_request_user_email && new_reser_request_user_email.trim() !== "") {
-                action_name_for_wp_action = 'hm_no_login_add_reservation';
+            var booking_dates = [];
+            $('.single-date-hour').each(function(index){
+                var start_hour = $(this).find('#start_hour').val();
+                var end_hour = $(this).find('#end_hour').val();
+                var arrive_date = $(this).find('#hourly_check_inn').val();
+
+                booking_dates[index + 1] = {
+                    'arrive_date': arrive_date,
+                    'start_hour': start_hour,
+                    'end_hour': end_hour
+                };
+            });
+
+            var guest_message = $('.guest-message').val();
+            var total_hours = $('.total-hours-count-hidden').val();
+            var guests = $("#select-listings-guests option:selected").val();
+            var listing_id = $('#listing_id').val();
+            var security = $('#reservation-security').val();
+            var new_reser_request_user_email = $('#new_reser_request_user_email').val();
+            if(new_reser_request_user_email == ''){
+                new_reser_request_user_email = $('#overlay-booking-module').find('#new_reser_request_user_email').val();
             }
+
+            var action_name_for_wp_action = 'homey_add_reservation';
+
+            var notify = $('.homey_notification');
+            notify.find('.notify').remove();
 
             $.ajax({
                 type: 'post',
@@ -2175,11 +2309,9 @@ jQuery(document).ready(function ($) {
                 dataType: 'json',
                 data: {
                     'action': action_name_for_wp_action,
-                    'check_in_date': check_in_date,
-                    'check_out_date': check_out_date,
+                    'booking_dates': booking_dates,
+                    'total_hours': total_hours,
                     'guests': guests,
-                    'adult_guest': adult_guest,
-                    'child_guest': child_guest,
                     'listing_id': listing_id,
                     'extra_options': extra_options,
                     'guest_message': guest_message,
@@ -2192,8 +2324,13 @@ jQuery(document).ready(function ($) {
                 },
                 success: function(data) {
                     if( data.success ) {
+                        console.log(data.reservation_detail);
                         $('.check_in_date, .check_out_date').val('');
                         notify.prepend('<div class="notify text-success text-center btn-success-outlined btn btn-full-width">'+data.message+'</div>');
+
+                        if( data.reservation_detail ) {
+                            window.location.href = data.reservation_detail;
+                        }
 
                     } else {
                         if($('.account-loggedin').length < 1){
@@ -2210,10 +2347,7 @@ jQuery(document).ready(function ($) {
                 complete: function(){
                     $this.children('i').removeClass(process_loader_spinner);
                 }
-
-            }); //
-            //}
-
+            });
         });
 
         /* ------------------------------------------------------------------------ */
@@ -5529,4 +5663,107 @@ jQuery(document).ready(function ($) {
         select_payment_gateway(payment_gateway);
     }
     // end of payment gateway issue
+
+
+    function calendar_next_prev_child(main_div, acdiv, is_next, singleMonth) {
+
+        $('.'+acdiv).on('click', function (e) {
+            e.preventDefault();
+
+            var next_prev_m = homey_calendar_months;
+            var next_prev_m1 = homey_calendar_months-1;
+            var next_prev_m2 = homey_calendar_months-2;
+
+            if(singleMonth) {
+
+                if(is_next) {
+                    if (current_month < next_prev_m1) {
+                        current_month = current_month + 1;
+                    } else {
+                        current_month = next_prev_m;
+                    }
+                } else {
+                    if (current_month > 1) {
+                        current_month = current_month - 1;
+                    } else {
+                        current_month = 1;
+                    }
+                }
+
+                $('.'+main_div).hide();
+                $('.'+main_div).each(function () {
+                    var month   =   parseInt($(this).attr('data-month'), 10);;
+                    if (month === current_month) {
+                        $(this).fadeIn();
+                    }
+                });
+
+            } else {
+
+                console.log("No Its Not Single Month");
+
+                if(is_next) {
+                    if (current_month2 < next_prev_m2) {
+                        current_month2 = current_month2 + 1;
+                    } else {
+                        current_month2 = next_prev_m1;
+                    }
+                } else {
+                    if (current_month2 > 3) {
+                        current_month2 = current_month2 - 1;
+                    } else {
+                        current_month2 = 2;
+                    }
+                }
+
+                if(is_next) {
+                    $('.'+main_div).hide();
+                    $('.'+main_div).each(function () {
+                        var month   =   parseInt($(this).attr('data-month'), 10);
+                        if (month === current_month2 || month === current_month2+1) {
+                            $(this).fadeIn();
+                        }
+                    });
+                } else {
+                    $('.'+main_div).hide();
+                    $('.'+main_div).each(function () {
+                        var month   =   parseInt($(this).attr('data-month'), 10);
+                        if (month === current_month2 || month === current_month2-1) {
+                            $(this).fadeIn();
+                        }
+                    });
+                }
+            }
+
+            if(singleMonth) {
+                
+                if(current_month == next_prev_m) {
+                    $(this).addClass('disabled');
+                } else {
+                    $('.homey-next-month, .experience-cal-next, .listing-cal-next, .search-cal-next').removeClass('disabled');
+                }
+
+                if(current_month == 1) {
+                    $(this).addClass('disabled');
+                } else {
+                    $('.homey-prev-month, .prev, .listing-cal-prev, .search-cal-prev').removeClass('disabled');
+                }
+            } else {
+
+                if(current_month2 == next_prev_m1) {
+                    $(this).addClass('disabled');
+                } else {
+                    $('.homey-next-month, .experience-cal-next, .listing-cal-next, .search-cal-next').removeClass('disabled');
+                }
+
+                if(current_month2 == 2) {
+                    $(this).addClass('disabled');
+                } else {
+                    $('.homey-prev-month, .experience-cal-prev, .listing-cal-prev, .search-cal-prev').removeClass('disabled');
+                }
+            }
+
+        });
+    }
+
 }); // end document ready
